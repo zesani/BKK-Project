@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    <button type="button" name="button" @click="add">Add</button>
+    <h1>Home</h1>
     <ul>
       <li v-for="issue in issues">{{ issue }}</li>
     </ul>
@@ -11,16 +11,15 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'Home',
+  data () {
+    return {
+    }
+  },
   computed: {
     ...mapGetters(['issues'])
   },
   methods: {
-    ...mapActions(['addIssue']),
-    add () {
-      this.addIssue({
-        text: 'test1'
-      })
-    }
+    ...mapActions([])
   }
 }
 </script>
