@@ -65,6 +65,11 @@ export default {
       this.description = ''
       this.fullName = ''
       this.phone = ''
+      this.photos = [{
+        img: '',
+        name: ''
+      }]
+      this.$router.push('/')
     },
     getLocation () {
       if (navigator.geolocation) {
@@ -108,5 +113,11 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scope>
+img {
+  width: 30%;
+  margin: auto;
+  display: block;
+  margin-bottom: 10px;
+}
 </style>
