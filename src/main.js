@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import 'bulma/css/bulma.css'
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyAvSSKt1Pi6QUmAayLmtMCUhoMijhCjeqM',
