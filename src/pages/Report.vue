@@ -28,13 +28,12 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data () {
     return {
       topic: '',
       location: '',
-      locationGps: {lat: 14.0224367, lng: 101.6217662},
       fullName: '',
       phone: '',
       description: '',
@@ -45,8 +44,8 @@ export default {
       indexPhoto: 0
     }
   },
-  mounted () {
-    this.getLocation()
+  computed: {
+    ...mapGetters(['locationGps'])
   },
   methods: {
     ...mapActions(['addIssue']),
@@ -70,17 +69,6 @@ export default {
         name: ''
       }]
       this.$router.push('/')
-    },
-    getLocation () {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.addLocation)
-      } else {
-        console.log('Geolocation is not supported by this browser.')
-      }
-    },
-    addLocation (position) {
-      var location = {lat: position.coords.latitude, lng: position.coords.longitude}
-      this.locationGps = location
     },
     addPhoto () {
       this.photos.push({

@@ -14,39 +14,39 @@ firebase.initializeApp(config)
 var db = firebase.database()
 var Issues = db.ref('issues')
 Vue.use(Vuex)
-// var storage = firebase.storage()
-// var storageRef = storage.ref('photos')
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    issues: []
+    issues: [],
+    locationGps: {lat: 14.0224367, lng: 101.6217662}
   },
   getters: {
-    issues: state => state.issues
+    issues: state => state.issues,
+    locationGps: state => state.locationGps
   },
   mutations: {
-    ...firebaseMutations
+    ...firebaseMutations,
+    addLocation: (state, location) => {
+      state.locationGps = location
+    }
   },
   actions: {
     setIssuesRef:
       firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }) => {
         bindFirebaseRef('issues', Issues)
       }),
+    getLocation ({commit}) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          console.log(position)
+          let location = {lat: position.coords.latitude, lng: position.coords.longitude}
+          commit('addLocation', location)
+        })
+      } else {
+        console.log('Geolocation is not supported by this browser.')
+      }
+    },
     addIssue ({commit}, payload) {
-      // let urlPhoto = []
-      // let i = 0
-      // payload.photos.forEach(photo => {
-      //   storageRef.child(Date.now() + photo.name).put(photo.file).then(function (snapshot) {
-      //     console.log(snapshot.downloadURL)
-      //     photo.url = snapshot.downloadURL
-      //     console.log('Upload success')
-      //     i++
-      //     if (i === (payload.photos.length)) {
-      //       Issues.push(payload)
-      //       console.log(payload.photos)
-      //     }
-      //   })
-      // })
       Issues.push(payload)
     }
   }

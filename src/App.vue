@@ -11,10 +11,11 @@ import { mapActions } from 'vuex'
 export default {
   name: 'app',
   methods: {
-    ...mapActions(['setIssuesRef'])
+    ...mapActions(['setIssuesRef', 'getLocation'])
   },
   created () {
     this.setIssuesRef()
+    this.getLocation()
   }
 }
 </script>
