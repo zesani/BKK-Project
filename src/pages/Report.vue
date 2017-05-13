@@ -14,7 +14,7 @@
         :position="locationGps"
         :clickable="true"
         :draggable="true"
-        @click="showPosition (position)"
+        @mouseup="setLocation($event)"
       ></gmap-marker>
     </gmap-map>
     สถานที่เกิดเหตุ<input type="text" v-model="location"><br>
@@ -74,6 +74,10 @@ export default {
     },
     addLocation (position) {
       var location = {lat: position.coords.latitude, lng: position.coords.longitude}
+      this.locationGps = location
+    },
+    setLocation (event) {
+      var location = {lat: event.latLng.lat(), lng: event.latLng.lng()}
       this.locationGps = location
     }
   }
