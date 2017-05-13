@@ -4,6 +4,19 @@
     เรื่อง<input type="text" v-model="topic"><br>
     <button type="button" @click="getLocation">ใช้ข้อมูลตำแหน่ง</button>
     {{ locationGps }}<br>
+    <gmap-map
+      :center="locationGps"
+      :zoom="7"
+      map-type-id="terrain"
+      style="width: 500px; height: 300px; margin: auto;"
+    >
+      <gmap-marker
+        :position="locationGps"
+        :clickable="true"
+        :draggable="true"
+        @click="showPosition (position)"
+      ></gmap-marker>
+    </gmap-map>
     สถานที่เกิดเหตุ<input type="text" v-model="location"><br>
     รายละเอียด<input type="text" v-model="description"><br>
     ชื่อ-สกุล<input type="text" v-model="fullName"><br>
@@ -13,12 +26,22 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import * as VueGoogleMaps from 'vue2-google-maps'
+import Vue from 'vue'
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyAvSSKt1Pi6QUmAayLmtMCUhoMijhCjeqM',
+    v: '3.27'
+  }
+})
+
 export default {
   data () {
     return {
       topic: '',
       location: '',
-      locationGps: '',
+      locationGps: {lat: 14.0224367, lng: 101.6217662},
       fullName: '',
       phone: '',
       description: ''
@@ -50,7 +73,7 @@ export default {
       }
     },
     addLocation (position) {
-      var location = [position.coords.latitude, position.coords.longitude]
+      var location = {lat: position.coords.latitude, lng: position.coords.longitude}
       this.locationGps = location
     }
   }
