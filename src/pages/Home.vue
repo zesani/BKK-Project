@@ -1,9 +1,10 @@
 <template lang="html">
   <div class="">
     <h1>Home</h1>
-    <ul>
-      <li v-for="issue in issues">{{ issue }}</li>
-    </ul>
+      <div v-for="issue in issues">{{ issue }}
+        <img v-for="photo in issue.photos" :src="photo.img" alt="">
+      </div>
+
   </div>
 </template>
 

@@ -2,7 +2,6 @@
   <div class="">
     <h1>Report</h1>
     เรื่อง<input type="text" v-model="topic"><br>
-    <button type="button" @click="getLocation">ใช้ข้อมูลตำแหน่ง</button>
     {{ locationGps }}<br>
     <gmap-map
       :center="locationGps"
@@ -18,24 +17,18 @@
       ></gmap-marker>
     </gmap-map>
     สถานที่เกิดเหตุ<input type="text" v-model="location"><br>
+    <div class="" v-for="(photo, index) in photos">
+      <img :src="photo.img" /><input type="file" @change="onFileChange" @click="indexPhoto = index"><br>
+    </div>
+    <button type="button" name="button" @click="addPhoto">add</button><br>
     รายละเอียด<input type="text" v-model="description"><br>
     ชื่อ-สกุล<input type="text" v-model="fullName"><br>
     เบอร์โทร<input type="text" v-model="phone"><br>
-    <button type="button" @click="add (topic, locationGps, location, description, fullName, phone)">เพิ่มปัญหา</button>
+    <button type="button" @click="add (topic, photos, locationGps, location, description, fullName, phone)">เพิ่มปัญหา</button>
   </div>
 </template>
 <script>
 import { mapActions } from 'vuex'
-import * as VueGoogleMaps from 'vue2-google-maps'
-import Vue from 'vue'
-
-Vue.use(VueGoogleMaps, {
-  load: {
-    key: 'AIzaSyAvSSKt1Pi6QUmAayLmtMCUhoMijhCjeqM',
-    v: '3.27'
-  }
-})
-
 export default {
   data () {
     return {
@@ -44,14 +37,23 @@ export default {
       locationGps: {lat: 14.0224367, lng: 101.6217662},
       fullName: '',
       phone: '',
-      description: ''
+      description: '',
+      photos: [{
+        img: '',
+        name: ''
+      }],
+      indexPhoto: 0
     }
+  },
+  mounted () {
+    this.getLocation()
   },
   methods: {
     ...mapActions(['addIssue']),
-    add (topic, locationGps, location, description, fullName, phone) {
+    add (topic, photos, locationGps, location, description, fullName, phone) {
       this.addIssue({
         topic,
+        photos,
         locationGps,
         location,
         description,
@@ -59,7 +61,6 @@ export default {
         phone
       })
       this.topic = ''
-      this.locationGps = ''
       this.location = ''
       this.description = ''
       this.fullName = ''
@@ -75,6 +76,29 @@ export default {
     addLocation (position) {
       var location = {lat: position.coords.latitude, lng: position.coords.longitude}
       this.locationGps = location
+    },
+    addPhoto () {
+      this.photos.push({
+        img: '',
+        name: '',
+        file: ''
+      })
+    },
+    onFileChange (e) {
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+      this.createImage(files[0])
+    },
+    createImage (file) {
+      // var image = new Image()
+      var reader = new FileReader()
+      var vm = this
+      reader.onload = (e) => {
+        vm.photos[vm.indexPhoto].img = e.target.result
+        vm.photos[vm.indexPhoto].name = file.name
+        vm.photos[vm.indexPhoto].file = file
+      }
+      reader.readAsDataURL(file)
     },
     setLocation (event) {
       var location = {lat: event.latLng.lat(), lng: event.latLng.lng()}
