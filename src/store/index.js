@@ -31,14 +31,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setIssuesRef:
-      firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }) => {
-        bindFirebaseRef('issues', Issues)
-      }),
+    setIssuesRef: firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }) => {
+      bindFirebaseRef('issues', Issues)
+    }),
     getLocation ({commit}) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
-          console.log(position)
           let location = {lat: position.coords.latitude, lng: position.coords.longitude}
           commit('addLocation', location)
         })

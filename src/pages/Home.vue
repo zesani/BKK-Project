@@ -24,7 +24,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['issues'])
+    ...mapGetters(['issues', 'locationGps'])
   },
   methods: {
     ...mapActions([])
