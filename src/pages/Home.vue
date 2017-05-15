@@ -5,7 +5,7 @@
         <p class="title is-1">Home</p>
         <p class="title is-3">{{profile.displayName}}</p>
         <button class="button is-danger" name="button" @click="logout">Logout</button><hr/>
-          <div v-for="issue in issues">
+          <div v-for="issue in showIssues">
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">topic: {{issue.topic}}</p><br/>
@@ -14,7 +14,7 @@
                 <div class="card-content">
                   <div class="content">
                     <li>GPS: {{issue.locationGps}}</li>
-                    <li>ระยะห่าง : {{ Number(HaversineInKM( issue.locationGps.lat , issue.locationGps.lng , locationGps.lat , locationGps.lng).toFixed(3)) }} km.</li>
+                    <li>ระยะห่าง : {{issue.distance.toFixed(3)}}  km.</li>
                     <li>ชื่อ: {{issue.fullName}}</li>
                     <li>โทรซ: {{issue.phone}}</li>
                     <img v-for="photo in issue.photos" :src="photo.img" alt="">
@@ -22,10 +22,10 @@
                 </div>
                 <footer class="card-footer">
                   <a class="card-footer-item plus" v-show="checkVote(issue.votes)" @click="addV(issue)">+&nbsp;
-                    <p class="colortext">{{countVotes(issue.votes)}}</p>
+                    <p class="colortext">{{issue.countVotes}}</p>
                   </a>
                   <a class="card-footer-item plus" v-show="!checkVote(issue.votes)">+&nbsp;
-                    <p class="colortext">{{countVotes(issue.votes)}}</p>
+                    <p class="colortext">{{issue.countVotes}}</p>
                   </a>
                   <a class="card-footer-item">Comment</a>
                   <a class="card-footer-item">Report</a>
@@ -37,7 +37,7 @@
       <div class="column is-hidden-desktop">
         <p class="title is-2">Home</p>
         <p class="title is-4">{{profile.displayName}}</p>
-          <div v-for="issue in issues" class="posit">
+          <div v-for="issue in showIssues" class="posit">
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title headsize">topic: {{issue.topic}}</p><br/>
@@ -46,6 +46,7 @@
                 <div class="card-content">
                   <div class="content">
                     <li>GPS: {{issue.locationGps}}</li>
+                    <li>ระยะห่าง : {{issue.distance.toFixed(3)}}  km.</li>
                     <li>ชื่อ: {{issue.fullName}}</li>
                     <li>โทรซ: {{issue.phone}}</li>
                     <img v-for="photo in issue.photos" :src="photo.img" alt="">
@@ -53,9 +54,10 @@
                 </div>
                 <footer class="card-footer">
                   <a class="card-footer-item plus detailsize" v-show="checkVote(issue.votes)" @click="addV(issue)">+&nbsp;
-                    <p class="colortext">{{countVotes(issue.votes)}}</p>
+                    <p class="colortext">{{issue.countVotes}}</p>
                   </a>
-                  <a class="card-footer-item plus detailsize" v-show="!checkVote(issue.votes)" >+&nbsp;<p class="colortext">{{countVotes(issue.votes)}}</p></a>
+                  <a class="card-footer-item plus detailsize" v-show="!checkVote(issue.votes)" >+&nbsp;
+                    <p class="colortext">{{issue.countVotes}}</p></a>
                   <a class="card-footer-item detailsize">Comment</a>
                   <a class="card-footer-item detailsize">Report</a>
                 </footer>
@@ -69,6 +71,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+var _ = require('lodash')
 export default {
   name: 'Home',
   data () {
@@ -76,7 +79,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['issues', 'locationGps', 'profile'])
+    ...mapGetters(['issues', 'locationGps', 'profile']),
+    showIssues () {
+      var vm = this
+      let newIssues = Object.keys(this.issues).map((key) => vm.issues[key])
+      newIssues.forEach(issue => {
+        issue.distance = this.HaversineInKM(issue.locationGps.lat, issue.locationGps.lng, this.locationGps.lat, this.locationGps.lng)
+        issue.countVotes = this.countVotes(issue.votes)
+      })
+      return _.orderBy(newIssues, 'distance')
+    }
   },
   methods: {
     ...mapActions(['logout', 'addVote']),
