@@ -3,6 +3,8 @@
     <div class="columns">
       <div class="column is-half is-offset-one-quarter is-hidden-touch">
         <h1 class="title is-1">Home</h1>
+        <h2>{{profile.displayName}}</h2>
+        <button type="button" name="button" @click="logout">Logout</button>
           <div v-for="issue in issues">
             <div class="card">
                 <header class="card-header">
@@ -64,10 +66,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['issues', 'locationGps'])
+    ...mapGetters(['issues', 'locationGps', 'profile'])
   },
   methods: {
-    ...mapActions([])
+    ...mapActions(['logout'])
   }
 }
 </script>
