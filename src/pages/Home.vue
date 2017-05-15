@@ -24,7 +24,7 @@
                   <a class="card-footer-item plus" v-show="checkVote(issue.votes)" @click="addV(issue)">+&nbsp;
                     <p class="colortext">{{issue.countVotes}}</p>
                   </a>
-                  <a class="card-footer-item plus" v-show="!checkVote(issue.votes)">+&nbsp;
+                  <a class="card-footer-item plus" v-show="!checkVote(issue.votes)" @click="removeV(issue)">+&nbsp;
                     <p class="colortext">{{issue.countVotes}}</p>
                   </a>
                   <a class="card-footer-item">Comment</a>
@@ -56,7 +56,7 @@
                   <a class="card-footer-item plus detailsize" v-show="checkVote(issue.votes)" @click="addV(issue)">+&nbsp;
                     <p class="colortext">{{issue.countVotes}}</p>
                   </a>
-                  <a class="card-footer-item plus detailsize" v-show="!checkVote(issue.votes)" >+&nbsp;
+                  <a class="card-footer-item plus detailsize" v-show="!checkVote(issue.votes)" @click="removeV(issue)">+&nbsp;
                     <p class="colortext">{{issue.countVotes}}</p></a>
                   <a class="card-footer-item detailsize">Comment</a>
                   <a class="card-footer-item detailsize">Report</a>
@@ -91,9 +91,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['logout', 'addVote']),
+    ...mapActions(['logout', 'addVote', 'removeVote']),
     addV (issue) {
-      this.addVote({key: issue['.key'], uid: this.profile.uid})
+      this.addVote({key: issue['.key'], profile: this.profile})
+    },
+    removeV (issue) {
+      let temp = Object.keys(issue.votes).map((key) => {
+        issue.votes[key].key = key
+        return issue.votes[key]
+      })
+      let check = temp.find(item => item.uid === this.profile.uid)
+      if (check === -1) return
+      this.removeVote({key: issue['.key'], keyProfile: check.key})
     },
     countVotes (votes) {
       let size = 0

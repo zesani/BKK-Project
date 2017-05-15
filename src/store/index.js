@@ -57,8 +57,12 @@ export default new Vuex.Store({
     },
     addVote ({commit}, payload) {
       Issues.child(payload.key + '/votes').push({
-        uid: payload.uid
+        uid: payload.profile.uid,
+        displayName: payload.profile.displayName
       })
+    },
+    removeVote ({commit}, payload) {
+      Issues.child(payload.key + '/votes/' + payload.keyProfile).remove()
     }
   },
   mutations: {
