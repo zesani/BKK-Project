@@ -2,9 +2,9 @@
   <div class="container is-fluid">
     <div class="columns">
       <div class="column is-half is-offset-one-quarter is-hidden-touch">
-        <h1 class="title is-1">Home</h1>
-        <h2>{{profile.displayName}}</h2>
-        <button type="button" name="button" @click="logout">Logout</button>
+        <p class="title is-1">Home</p>
+        <p class="title is-3">{{profile.displayName}}</p>
+        <button class="button is-danger" name="button" @click="logout">Logout</button><hr/>
           <div v-for="issue in issues">
             <div class="card">
                 <header class="card-header">
@@ -14,6 +14,7 @@
                 <div class="card-content">
                   <div class="content">
                     <li>GPS: {{issue.locationGps}}</li>
+                    <li>ระยะห่าง : {{ Number(HaversineInKM( issue.locationGps.lat , issue.locationGps.lng , locationGps.lat , locationGps.lng).toFixed(3)) }} km.</li>
                     <li>ชื่อ: {{issue.fullName}}</li>
                     <li>โทรซ: {{issue.phone}}</li>
                     <img v-for="photo in issue.photos" :src="photo.img" alt="">
@@ -34,7 +35,8 @@
         </div>
       </div>
       <div class="column is-hidden-desktop">
-        <h1 class="title is-1">Home</h1>
+        <p class="title is-2">Home</p>
+        <p class="title is-4">{{profile.displayName}}</p>
           <div v-for="issue in issues" class="posit">
             <div class="card">
                 <header class="card-header">
@@ -94,6 +96,15 @@ export default {
       let check = temp.find(item => item.uid === this.profile.uid)
       if (check === -1) return true
       return false
+    },
+    HaversineInKM (Lat, Long, LatHere, LongHere) {
+      var d2r = (Math.PI / 180)
+      var dlong = (LongHere - Long) * d2r
+      var dlat = (LatHere - Lat) * d2r
+      var a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(Lat * d2r) * Math.cos(LatHere * d2r) * Math.pow(Math.sin(dlong / 2), 2)
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+      var d = 6378.1370 * c
+      return d
     }
   }
 }
@@ -104,15 +115,15 @@ export default {
   color:red;
 }
 .posit {
-  margin-left:15px;
+  margin-left:0px;
 }
 .colortext {
   color:black;
 }
 .headsize {
-  font-size: 40px
+  font-size: 25px
 }
 .detailsize {
-  font-size: 35px
+  font-size: 20px
 }
 </style>

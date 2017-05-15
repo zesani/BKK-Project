@@ -52,6 +52,6 @@ export default {
   margin-top: 60px;
 }
 .menusize {
-  font-size:60px;
+  font-size:25px;
 }
 </style>
