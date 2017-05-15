@@ -41,7 +41,8 @@ export default {
         img: '',
         name: ''
       }],
-      indexPhoto: 0
+      indexPhoto: 0,
+      votes: []
     }
   },
   computed: {

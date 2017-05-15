@@ -54,6 +54,11 @@ export default new Vuex.Store({
     },
     addIssue ({commit}, payload) {
       Issues.push(payload)
+    },
+    addVote ({commit}, payload) {
+      Issues.child(payload.key + '/votes').push({
+        uid: payload.uid
+      })
     }
   },
   mutations: {

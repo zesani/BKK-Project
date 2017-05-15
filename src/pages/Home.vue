@@ -20,7 +20,12 @@
                   </div>
                 </div>
                 <footer class="card-footer">
-                  <a class="card-footer-item plus">+&nbsp;<p class="colortext">250</p></a>
+                  <a class="card-footer-item plus" v-show="checkVote(issue.votes)" @click="addV(issue)">+&nbsp;
+                    <p class="colortext">{{countVotes(issue.votes)}}</p>
+                  </a>
+                  <a class="card-footer-item plus" v-show="!checkVote(issue.votes)">+&nbsp;
+                    <p class="colortext">{{countVotes(issue.votes)}}</p>
+                  </a>
                   <a class="card-footer-item">Comment</a>
                   <a class="card-footer-item">Report</a>
                 </footer>
@@ -45,7 +50,10 @@
                   </div>
                 </div>
                 <footer class="card-footer">
-                  <a class="card-footer-item plus detailsize">+&nbsp;<p class="colortext">250</p></a>
+                  <a class="card-footer-item plus detailsize" v-show="checkVote(issue.votes)" @click="addV(issue)">+&nbsp;
+                    <p class="colortext">{{countVotes(issue.votes)}}</p>
+                  </a>
+                  <a class="card-footer-item plus detailsize" v-show="!checkVote(issue.votes)" >+&nbsp;<p class="colortext">{{countVotes(issue.votes)}}</p></a>
                   <a class="card-footer-item detailsize">Comment</a>
                   <a class="card-footer-item detailsize">Report</a>
                 </footer>
@@ -69,7 +77,24 @@ export default {
     ...mapGetters(['issues', 'locationGps', 'profile'])
   },
   methods: {
-    ...mapActions(['logout'])
+    ...mapActions(['logout', 'addVote']),
+    addV (issue) {
+      this.addVote({key: issue['.key'], uid: this.profile.uid})
+    },
+    countVotes (votes) {
+      let size = 0
+      for (let key in votes) {
+        if (votes.hasOwnProperty(key)) size++
+      }
+      return size
+    },
+    checkVote (votes) {
+      if (votes === undefined) return true
+      let temp = Object.keys(votes).map((key) => votes[key])
+      let check = temp.find(item => item.uid === this.profile.uid)
+      if (check === -1) return true
+      return false
+    }
   }
 }
 </script>
