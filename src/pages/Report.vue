@@ -2,24 +2,17 @@
   <div class="">
     <h1>Report</h1>
     เรื่อง<input type="text" v-model="topic"><br>
-    <gmap-map
-      :center="centerMap"
-      :zoom="15"
-      map-type-id="terrain"
-      style="width: 500px; height: 300px; margin: auto;"
-    >
-      <gmap-marker
-        :position="locationGps"
-        :clickable="true"
-        :draggable="true"
-        @mouseup="setLocation($event)"
-      ></gmap-marker>
-    </gmap-map>
+    <!-- <gmap-map :center="centerMap" :zoom="15" map-type-id="terrain" style="width: 500px; height: 300px; margin: auto;">
+      <gmap-marker :position="locationGps" :clickable="true" :draggable="true" @mouseup="setLocation($event)"></gmap-marker>
+    </gmap-map> -->
     สถานที่เกิดเหตุ<input type="text" v-model="location"><br>
     <div class="" v-for="(photo, index) in photos">
-      <img :src="photo.img" /><input type="file" @change="onFileChange" @click="indexPhoto = index"><br>
+      <img :src="photo.img" v-show="photo.img !== ''"/>
+      <div class="upload" v-show="photo.img === ''">
+        <input type="file" @change="onFileChange" @click="indexPhoto = index">
+      </div>
     </div>
-    <button type="button" name="button" @click="addPhoto">add</button><br>
+    <!-- <button type="button" name="button" @click="addPhoto">add</button><br> -->
     รายละเอียด<input type="text" v-model="description"><br>
     ชื่อ-สกุล<input type="text" v-model="fullName"><br>
     เบอร์โทร<input type="text" v-model="phone"><br>
@@ -90,6 +83,7 @@ export default {
         vm.photos[vm.indexPhoto].img = e.target.result
         vm.photos[vm.indexPhoto].name = file.name
         vm.photos[vm.indexPhoto].file = file
+        vm.addPhoto()
       }
       reader.readAsDataURL(file)
     },
@@ -109,5 +103,24 @@ img {
   margin: auto;
   display: block;
   margin-bottom: 10px;
+}
+.upload {
+    /*width: 157px;
+    height: 57px;*/
+    width: 20%;
+    overflow: hidden;
+    float: right;
+    background: url('http://www.free-icons-download.net/images/plus-logo-icon-27956.png');
+    background-size: 57px;
+    background-repeat: no-repeat;
+    /*border: 1px solid black;*/
+}
+.upload input {
+    float: right;
+    display: block !important;
+    /*width: 157px !important;*/
+    height: 57px !important;
+    opacity: 1 !important;
+    overflow: hidden !important;
 }
 </style>
