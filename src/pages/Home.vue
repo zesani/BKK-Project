@@ -101,7 +101,7 @@ export default {
         return issue.votes[key]
       })
       let check = temp.find(item => item.uid === this.profile.uid)
-      if (check === -1) return
+      if (check === undefined) return
       this.removeVote({key: issue['.key'], keyProfile: check.key})
     },
     countVotes (votes) {
@@ -114,8 +114,10 @@ export default {
     checkVote (votes) {
       if (votes === undefined) return true
       let temp = Object.keys(votes).map((key) => votes[key])
+      // console.log(temp)
       let check = temp.find(item => item.uid === this.profile.uid)
-      if (check === -1) return true
+      // console.log(check)
+      if (check === undefined) return true
       return false
     },
     HaversineInKM (Lat, Long, LatHere, LongHere) {

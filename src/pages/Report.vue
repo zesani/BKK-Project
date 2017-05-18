@@ -2,10 +2,9 @@
   <div class="">
     <h1>Report</h1>
     เรื่อง<input type="text" v-model="topic"><br>
-    {{ locationGps }}<br>
     <gmap-map
-      :center="locationGps"
-      :zoom="7"
+      :center="centerMap"
+      :zoom="15"
       map-type-id="terrain"
       style="width: 500px; height: 300px; margin: auto;"
     >
@@ -46,10 +45,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['locationGps'])
+    ...mapGetters(['locationGps', 'centerMap'])
   },
   methods: {
-    ...mapActions(['addIssue']),
+    ...mapActions(['addIssue', 'markLocation']),
     add (topic, photos, locationGps, location, description, fullName, phone) {
       this.addIssue({
         topic,
@@ -95,8 +94,10 @@ export default {
       reader.readAsDataURL(file)
     },
     setLocation (event) {
-      var location = {lat: event.latLng.lat(), lng: event.latLng.lng()}
-      this.locationGps = location
+      var location = {}
+      location.lat = event.latLng.lat()
+      location.lng = event.latLng.lng()
+      this.markLocation(location)
     }
   }
 }

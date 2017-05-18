@@ -21,13 +21,15 @@ export default new Vuex.Store({
     issues: [],
     authorized: false,
     profile: '',
-    locationGps: {lat: 14.0224367, lng: 101.6217662}
+    locationGps: {lat: 14.0224367, lng: 101.6217662},
+    centerMap: {lat: 14.0224367, lng: 101.6217662}
   },
   getters: {
     issues: state => state.issues,
     locationGps: state => state.locationGps,
     profile: state => state.profile,
-    authorized: state => state.authorized
+    authorized: state => state.authorized,
+    centerMap: state => state.centerMap
   },
   actions: {
     setIssuesRef: firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }) => {
@@ -63,11 +65,18 @@ export default new Vuex.Store({
     },
     removeVote ({commit}, payload) {
       Issues.child(payload.key + '/votes/' + payload.keyProfile).remove()
+    },
+    markLocation ({commit}, location) {
+      commit('setLocation', location)
     }
   },
   mutations: {
     ...firebaseMutations,
     addLocation: (state, location) => {
+      state.locationGps = location
+      state.centerMap = location
+    },
+    setLocation (state, location) {
       state.locationGps = location
     },
     checkLogin (state) {
