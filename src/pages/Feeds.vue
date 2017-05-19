@@ -1,21 +1,26 @@
 <template lang="html">
-  <div class="columns">
-    <div class="column">
-      <p class="title is-2">Home</p>
-      <p class="title is-4">{{profile.displayName}}</p>
-      <card v-for="issue in showIssues" :key="issue['.key']" :issue="issue"></card>
+  <div class="columns is-multiline">
+    <div class="column is-12-tablet"></div>
+    <div class="column is-12-tablet"></div>
+    <div class="column cards is-6-tablet is-offset-3-tablet">
+      <card-issues v-for="issue in showIssues" :key="issue['.key']" :issue="issue"></card-issues>
     </div>
+    <div class="column is-12-table"></div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Card from '../components/Card.vue'
+import CardIssues from '../components/CardIssues'
 var _ = require('lodash')
 export default {
   name: 'Home',
+  data () {
+    return {
+    }
+  },
   components: {
-    Card
+    CardIssues
   },
   computed: {
     ...mapGetters(['issues', 'locationGps', 'profile']),
@@ -25,6 +30,7 @@ export default {
       newIssues.forEach(issue => {
         issue.distance = this.HaversineInKM(issue.locationGps.lat, issue.locationGps.lng, this.locationGps.lat, this.locationGps.lng)
         issue.countVotes = this.countVotes(issue.votes)
+        issue.countComments = this.countComments(issue.comments)
       })
       return _.orderBy(newIssues, 'distance')
     }
@@ -35,6 +41,13 @@ export default {
       let size = 0
       for (let key in votes) {
         if (votes.hasOwnProperty(key)) size++
+      }
+      return size
+    },
+    countComments (comments) {
+      let size = 0
+      for (let key in comments) {
+        if (comments.hasOwnProperty(key)) size++
       }
       return size
     },
@@ -52,19 +65,13 @@ export default {
 </script>
 
 <style lang="css">
-.plus {
-  color:red;
-}
-.posit {
-  margin-left:0px;
-}
-.colortext {
-  color:black;
-}
-.headsize {
-  font-size: 25px
-}
-.detailsize {
-  font-size: 20px
+.cards{
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  /*padding-top: 18% !important;*/
+  /*height: 100%;*/
+  overflow: auto;
 }
 </style>

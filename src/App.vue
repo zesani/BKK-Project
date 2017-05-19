@@ -1,14 +1,21 @@
 <template>
-  <section class="app">
-     <div class="container">
-       <router-view v-if="authorized"></router-view>
+  <div id="app">
+    <bar-header></bar-header>
+    <router-view></router-view>
+    <!-- <login></login> -->
+    <footer-bar></footer-bar>
+  </div>
+  <!-- <section class="app">
+     <div class="container"> -->
+       <!-- <nav-menu></navMenu> -->
+       <!-- <router-view v-if="authorized"></router-view>
        <div class="" v-else>
          <button type="button" name="button" @click="login">Login With Facebook</button>
        </div>
        <router-link :to="'/'">Home</router-link>
        <router-link :to="'report'">Report</router-link>
      </div>
- </section>
+ </section> -->
 
       <!-- <div class="column is-hidden-desktop">
         <router-view v-if="authorized"></router-view>
@@ -23,6 +30,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import BarHeader from './components/BarHeader'
+import FooterBar from './components/FooterBar'
+import Login from './components/Login'
 export default {
   name: 'app',
   methods: {
@@ -30,6 +40,11 @@ export default {
   },
   computed: {
     ...mapGetters(['authorized'])
+  },
+  components: {
+    BarHeader,
+    FooterBar,
+    Login
   },
   created () {
   },
@@ -42,10 +57,18 @@ export default {
 </script>
 
 <style>
-.menusize {
-  font-size:25px;
+@import url('https://fonts.googleapis.com/css?family=Kanit:300&subset=thai');
+html, body {
+  margin:0;
+  padding:0;
+  height:100% !important;
+  background-color: #e6e6e6 !important;
 }
-.app {
-  overflow: hidden;
+#app {
+  font-family: 'Kanit', sans-serif;
+  /*height: 100%;*/
+}
+.coloraw{
+  color: #0e8e5c !important;
 }
 </style>

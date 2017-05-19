@@ -14,6 +14,7 @@ var config = {
 firebase.initializeApp(config)
 var db = firebase.database()
 var provider = new firebase.auth.FacebookAuthProvider()
+// var provider = new firebase.auth.GoogleAuthProvider()
 var Issues = db.ref('issues')
 
 export default new Vuex.Store({
@@ -68,6 +69,14 @@ export default new Vuex.Store({
     },
     markLocation ({commit}, location) {
       commit('setLocation', location)
+    },
+    addComment ({commit}, payload) {
+      Issues.child(payload.key + '/comments').push({
+        uid: payload.profile.uid,
+        displayName: payload.profile.displayName,
+        photoURL: payload.profile.photoURL,
+        message: payload.message
+      })
     }
   },
   mutations: {
