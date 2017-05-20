@@ -4,16 +4,16 @@
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">ความคิดเห็น</p>
+        <p class="modal-card-title"><center>ความคิดเห็น</center></p>
         <button class="delete" @click="showComment"></button>
       </header>
       <div class="modal-card-body comments" >
         <div class="card" v-for="comment in issue.comments">
           <div class="card-content">
             <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
-                  <img :src="comment.photoURL" alt="Image">
+              <div class="media-left is-48x48">
+                <figure class="image">
+                  <img :src="comment.photoURL" class="company-header-avatar" alt="Image">
                 </figure>
               </div>
               <div class="media-content">
@@ -24,9 +24,21 @@
           </div>
         </div>
       </div>
-      <footer class="modal-card-foot level">
-        <input class="input" v-model="message" type="text" placeholder="Text input">&nbsp;
-        <span><a class="button" @click="addC">แสดงความคิดเห็น</a></span>
+      <footer class="modal-card-foot s">
+        <!-- <a class="button is-success">Save changes</a> -->
+        <textarea class="message" v-model="message" :rows="line"  placeholder="เขียนความคิดเห็น ..." autofocus></textarea>
+        <span><a :class="{'button disabled post':message === '', 'button is-primary post': message !==''}" @click="addC">โพสต์</a></span>
+      <!-- <a class="button">Cancel</a> -->
+        <!-- <div class="columns is-mobile is-multiline">
+          <div class="column is-12 v">
+            <textarea class="message" v-model="message" :rows="line + 1"  placeholder="เขียนความคิดเห็น ..." autofocus></textarea>
+          </div>
+          <div class="column v">
+            <span><a :class="{'button disabled':message === '', 'button is-primary': message !==''}" @click="addC">โพสต์</a></span>
+          </div>
+        </div> -->
+        <!-- <input class="input" v-model="message" type="text" placeholder="Text input">&nbsp;
+        <span><a class="button" @click="addC">แสดงความคิดเห็น</a></span> -->
       </footer>
     </div>
   </div>
@@ -43,14 +55,24 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['locationGps', 'profile'])
+    ...mapGetters(['locationGps', 'profile']),
+    line () {
+      if (this.message === '' || this.message.split('\n').length === 1) return 2
+      if (this.message.split('\n').length >= 5) {
+        return 5
+      } else {
+        return this.message.split('\n').length
+      }
+    }
   },
   mounted () {
   },
   methods: {
     ...mapActions(['addComment']),
     addC () {
-      this.addComment({key: this.issue['.key'], profile: this.profile, message: this.message})
+      if (this.message !== '') {
+        this.addComment({key: this.issue['.key'], profile: this.profile, message: this.message})
+      }
       this.message = ''
     }
   },
@@ -64,14 +86,50 @@ export default {
   padding: 0px !important;
 }
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .4s ease;
 }
 .slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .1.5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active for <2.1.8 */ {
   transform: translateX(50px);
   opacity: 0;
 }
+a.can-sent {
+  /*background-color: #ff8d00;*/
+  color: white;
+}
+a.can-sent hover{
+  /*background-color: #ff8d00;*/
+  color: white;
+}
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+   /*background-color: #f00 !important;*/
+}
+.company-header-avatar{
+  width: 48px !important;
+  height: 48px !important;
+  -webkit-border-radius: 60px !important;
+  -webkit-background-clip: padding-box !important;
+  -moz-border-radius: 60px !important;
+  -moz-background-clip: padding !important;
+  border-radius: 60px !important;
+  background-clip: padding-box !important;
+  margin: 0px 0px 0px 5px !important;
+  float: left;
+}
+.message {
+  width: 90% !important;
+}
+.s {
+  /*height: 3% !important;*/
+}
+.post {
+  margin-left: 16%;
+  margin-bottom: 45%;
+}
+/*textarea { height: auto !important; }*/
 </style>

@@ -2,8 +2,8 @@
   <!-- <div class="columns"> -->
     <div class="column is-12-mobile is-6-tablet x is-offset-3-tablet">
       <nav class="nav has-shadow button-issue ">
-        <div class="nav-center level" v-show="$route.name === 'Feeds'">
-          <a class="nav-item level-item" style="color: white;" @click="toReport">
+        <div class="nav-center level" v-show="$route.name === 'Feeds'" @click="toReport">
+          <a class="nav-item level-item" style="color: white;">
             <i class="fa fa-plus-circle " aria-hidden="true"></i>&nbsp;
             <span class="">
               รายงานปัญหา
@@ -25,7 +25,10 @@ export default {
   methods: {
     toReport () {
       if (!this.authorized) {
-        this.$dialog.alert({message: 'หากคุณต้องการแจ้งปัญหากรุณา เข้าสู่ระบบก่อนค่ะ'})
+        this.$dialog.alert({
+          message: 'หากคุณต้องการแจ้งปัญหากรุณา เข้าสู่ระบบก่อนค่ะ',
+          confirmText: 'รับทราบ'
+        })
         return
       }
       this.$router.push({ path: 'report' })
@@ -41,14 +44,19 @@ export default {
   /*right: 0px;*/
   /*width: 100px;*/
   color: white !important;
+  border-radius: 5px !important;
   /*left: 10px;*/
   /*right: 5px;*/
 }
 .x {
-  padding: 0px !important;
+  /*border: 1px solid black;*/
+  /*padding: */
+  /*padding: 5px !important;*/
   width: 100vw;
   position: fixed !important;
   bottom: 1px !important;
+  /*margin-left: 10px;*/
+  /*margin-right: 100px !important;*/
   /*border: 1px solid black;*/
 }
 </style>

@@ -19,9 +19,10 @@
         <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;
         <span class="level-item"> เข้าสู่ระบบ </span>
       </a>
-      <a class="nav-item" style="color: white;" @click="logout" v-show="authorized">
-        <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;
-        <span class="level-item">{{profile.displayName}} ออกจากระบบ  </span>
+      <a class="nav-item" style="color: white; cursor: pointer;" @click="signOut" v-show="authorized">
+        <!-- <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp; -->
+        <i class="fa fa-sign-out" aria-hidden="true"></i>
+        <span class="level-item">logout</span>
       </a>
     </div>
   </nav>
@@ -38,7 +39,21 @@ export default {
   },
   mounted () {},
   methods: {
-    ...mapActions(['login', 'logout'])
+    ...mapActions(['login', 'logout']),
+    signOut () {
+      var vm = this
+      this.$dialog.confirm({
+        message: '&nbsp;&nbsp;&nbspคุณต้องการออกจากระบบใช่หรือไม่',
+        confirmText: 'ใช่',
+        cancelText: 'ไม่ใช่',
+        type: 'is-primary',
+        hasIcon: true,
+        onConfirm: () => {
+          console.log('eee')
+          vm.logout()
+        }
+      })
+    }
   },
   components: {}
 }

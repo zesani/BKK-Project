@@ -42,7 +42,10 @@ export default {
     ...mapActions(['logout', 'addVote', 'removeVote']),
     addV (issue) {
       if (!this.authorized) {
-        this.$dialog.alert({message: 'กรุณา Login เข้าสู่ระบบก่อนทำการกดโหวตค่ะ'})
+        this.$dialog.alert({
+          message: 'กรุณา Login เข้าสู่ระบบก่อนทำการกดโหวตค่ะ',
+          confirmText: 'รับทราบ'
+        })
         return
       }
       if (this.addVote({key: issue['.key'], profile: this.profile})) {

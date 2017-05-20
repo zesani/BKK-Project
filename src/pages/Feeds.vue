@@ -66,8 +66,8 @@ export default {
 
 <style lang="css">
 .cards{
-  padding-left: 15px !important;
-  padding-right: 15px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
   padding-top: 20px !important;
   padding-bottom: 20px !important;
   /*padding-top: 18% !important;*/

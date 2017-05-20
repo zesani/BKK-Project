@@ -39,7 +39,7 @@ export default {
     ...mapActions(['setIssuesRef', 'getLocation', 'login', 'checkLogin'])
   },
   computed: {
-    ...mapGetters(['authorized'])
+    ...mapGetters(['authorized', 'issues'])
   },
   components: {
     BarHeader,
@@ -47,19 +47,52 @@ export default {
     Login
   },
   created () {
+    this.setIssuesRef()
   },
   mounted () {
-    this.setIssuesRef()
+    console.log(this.issues)
     this.getLocation()
     this.checkLogin()
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
+$family-serif: 'Kanit', sans-serif;
+// Set your colors
+$primary: #ff8d00;
+$primary-invert: findColorInvert($primary);
+$twitter: #4099ff;
+$twitter-invert: findColorInvert($twitter);
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: (
+    "white": ($white, $black),
+    "black": ($black, $white),
+    "light": ($light, $light-invert),
+    "dark": ($dark, $dark-invert),
+    "primary": ($primary, $primary-invert),
+    "info": ($info, $info-invert),
+    "success": ($success, $success-invert),
+    "warning": ($warning, $warning-invert),
+    "danger": ($danger, $danger-invert),
+    "twitter": ($twitter, $twitter-invert)
+);
+
+$family-primary: $family-serif;
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
 @import url('https://fonts.googleapis.com/css?family=Kanit:300&subset=thai');
 html, body {
   margin:0;
+  font-family: 'Kanit', sans-serif;
   padding:0;
   height:100% !important;
   background-color: #e6e6e6 !important;
@@ -67,10 +100,10 @@ html, body {
   overflow-y: auto;
 }
 #app {
-  font-family: 'Kanit', sans-serif;
   /*height: 100%;*/
 }
 .coloraw{
   color: #0e8e5c !important;
 }
+
 </style>
