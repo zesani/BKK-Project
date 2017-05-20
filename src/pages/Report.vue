@@ -47,9 +47,9 @@
         <p class="control">
           <button class="button is-primary font-issue" @click="add (topic, photos, locationGps, location, description, fullName, phone)">แจ้งเหตุ</button>
         </p>
-        <p class="control">
+        <!-- <p class="control">
           <button class="button is-link font-issue">ยกเลิก</button>
-        </p>
+        </p> -->
       </div>
     </div>
     <div class="column is-12-tablet"></div>

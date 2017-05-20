@@ -3,6 +3,9 @@
     <bar-header></bar-header>
     <router-view></router-view>
     <!-- <login></login> -->
+    <div class="data-load" v-show="loading">
+      <sync-loader :color="color" :size="size"></sync-loader>
+    </div>
     <footer-bar></footer-bar>
   </div>
   <!-- <section class="app">
@@ -33,24 +36,32 @@ import { mapGetters, mapActions } from 'vuex'
 import BarHeader from './components/BarHeader'
 import FooterBar from './components/FooterBar'
 import Login from './components/Login'
+import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 export default {
   name: 'app',
+  data () {
+    return {
+      color: '#0e8e5c',
+      size: '70px'
+    }
+  },
   methods: {
     ...mapActions(['setIssuesRef', 'getLocation', 'login', 'checkLogin'])
   },
   computed: {
-    ...mapGetters(['authorized', 'issues'])
+    ...mapGetters(['authorized', 'issues']),
+    loading () {
+      return this.issues === []
+    }
   },
   components: {
     BarHeader,
     FooterBar,
-    Login
-  },
-  created () {
-    this.setIssuesRef()
+    Login,
+    SyncLoader
   },
   mounted () {
-    console.log(this.issues)
+    this.setIssuesRef()
     this.getLocation()
     this.checkLogin()
   }
@@ -96,8 +107,8 @@ html, body {
   padding:0;
   height:100% !important;
   background-color: #e6e6e6 !important;
-  overflow-x: hidden;
-  overflow-y: auto;
+  // overflow-x: hidden;
+  // overflow-y: auto;
 }
 #app {
   /*height: 100%;*/
@@ -105,5 +116,15 @@ html, body {
 .coloraw{
   color: #0e8e5c !important;
 }
-
+.data-load {
+  height: 100vh;
+  background-color: white;
+  position: fixed;
+  z-index: 100;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  padding-top: 50%;
+  padding-left: 24%;
+}
 </style>

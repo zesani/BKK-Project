@@ -25,20 +25,8 @@
         </div>
       </div>
       <footer class="modal-card-foot s">
-        <!-- <a class="button is-success">Save changes</a> -->
         <textarea class="message" v-model="message" :rows="line"  placeholder="เขียนความคิดเห็น ..." autofocus></textarea>
         <span><a :class="{'button disabled post':message === '', 'button is-primary post': message !==''}" @click="addC">โพสต์</a></span>
-      <!-- <a class="button">Cancel</a> -->
-        <!-- <div class="columns is-mobile is-multiline">
-          <div class="column is-12 v">
-            <textarea class="message" v-model="message" :rows="line + 1"  placeholder="เขียนความคิดเห็น ..." autofocus></textarea>
-          </div>
-          <div class="column v">
-            <span><a :class="{'button disabled':message === '', 'button is-primary': message !==''}" @click="addC">โพสต์</a></span>
-          </div>
-        </div> -->
-        <!-- <input class="input" v-model="message" type="text" placeholder="Text input">&nbsp;
-        <span><a class="button" @click="addC">แสดงความคิดเห็น</a></span> -->
       </footer>
     </div>
   </div>
@@ -80,7 +68,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scope>
 .comments {
   height: 100vh;
   padding: 0px !important;

@@ -9,8 +9,11 @@
       รายละเอียด: {{issue.description}}
       <br>
       <div class="columns">
-        <div class="column" v-for="photo in issue.photos">
+        <!-- <div class="column" v-for="photo in issue.photos">
           <img :src="photo.img" alt="">
+        </div> -->
+        <div class="column">
+          <img :src="issue.photos[0].img" alt="">
         </div>
       </div>
       </div>
