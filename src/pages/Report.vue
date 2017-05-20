@@ -26,8 +26,10 @@
         <input class="input" type="text" placeholder="(Ex.ท่อน้ำปะปาแตก)" v-model="topic"><br><br>
         <label class="label">สถานที่เกิดเหตุ</label>
         <input class="input" type="text" placeholder="(Ex.สี่แยกราชประสงค์)" v-model="location"><br><br>
-        <input type="file" class="button is-primary font-issue" @change="onFileChange" @click="indexPhoto = photos.length-1"><br><br>
-        <!-- <button class="button is-primary font-issue">เพิ่มรูป</button><br><br> -->
+        <div class="fileUpload button is-primary" @change="onFileChange" @click="indexPhoto = photos.length-1">
+          <span>เพิ่มรุปภาพ</span>
+          <input type="file" class="upload" />
+        </div>
         <div class="columns is-mobile is-multiline is-gapless">
           <div v-if="photo.img !== ''" class="column box-x" v-for="(photo, index) in photos">
             <span class="level-center" @click="removePhoto(index)">
@@ -174,5 +176,24 @@ export default {
 }
 .box-x img{
   width: 98%;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+
 }
 </style>

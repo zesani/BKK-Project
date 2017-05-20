@@ -18,7 +18,7 @@
     <footer class="card-footer">
       <a class="card-footer-item" v-show="checkVote(issue.votes)" @click="addV(issue)">+{{issue.countVotes}}</a>
       <a class="card-footer-item" v-show="!checkVote(issue.votes)" @click="removeV(issue)">+{{issue.countVotes}}</a>
-      <a class="card-footer-item" @click="showComment()">{{issue.countComments}} Comment</a>
+      <a class="card-footer-item" @click="showComment()">{{issue.countComments}} ความคิดเห็น</a>
     </footer>
     <comments :modal-style="modalStyle" :show-comment="showComment" :issue="issue"></comments>
   </div>
@@ -31,17 +31,26 @@ export default {
   props: ['issue'],
   data () {
     return {
-      modalStyle: 'modal'
+      modalStyle: false
     }
   },
   computed: {
-    ...mapGetters(['locationGps', 'profile'])
+    ...mapGetters(['locationGps', 'profile', 'authorized'])
   },
   mounted () {},
   methods: {
     ...mapActions(['logout', 'addVote', 'removeVote']),
     addV (issue) {
-      this.addVote({key: issue['.key'], profile: this.profile})
+      if (!this.authorized) {
+        this.$dialog.alert({message: 'กรุณา Login เข้าสู่ระบบก่อนทำการกดโหวตค่ะ'})
+        return
+      }
+      if (this.addVote({key: issue['.key'], profile: this.profile})) {
+        this.$toast.open({
+          message: 'ขอบคุณสำหรับการโหวตค่ะ',
+          type: 'is-success'
+        })
+      }
     },
     removeV (issue) {
       let temp = Object.keys(issue.votes).map((key) => {
@@ -60,11 +69,7 @@ export default {
       return false
     },
     showComment () {
-      if (this.modalStyle === 'modal') {
-        this.modalStyle = 'modal is-active'
-      } else {
-        this.modalStyle = 'modal'
-      }
+      this.modalStyle = !this.modalStyle
     }
   },
   components: {

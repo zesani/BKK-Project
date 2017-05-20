@@ -17,11 +17,11 @@
     <div class="nav-right">
       <a class="nav-item" style="color: white;" @click="login" v-show="!authorized">
         <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;
-        <span class="level-item"> Login </span>
+        <span class="level-item"> เข้าสู่ระบบ </span>
       </a>
       <a class="nav-item" style="color: white;" @click="logout" v-show="authorized">
         <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;
-        <span class="level-item">{{profile.displayName}} Logout  </span>
+        <span class="level-item">{{profile.displayName}} ออกจากระบบ  </span>
       </a>
     </div>
   </nav>

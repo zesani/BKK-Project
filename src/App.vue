@@ -63,6 +63,8 @@ html, body {
   padding:0;
   height:100% !important;
   background-color: #e6e6e6 !important;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 #app {
   font-family: 'Kanit', sans-serif;

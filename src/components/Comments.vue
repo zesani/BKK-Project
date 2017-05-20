@@ -1,9 +1,10 @@
 <template lang="html">
-  <div :class="modalStyle">
+  <transition name="slide-fade">
+  <div v-if="modalStyle"class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Comment</p>
+        <p class="modal-card-title">ความคิดเห็น</p>
         <button class="delete" @click="showComment"></button>
       </header>
       <div class="modal-card-body comments" >
@@ -29,6 +30,7 @@
       </footer>
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -60,5 +62,16 @@ export default {
 .comments {
   height: 100vh;
   padding: 0px !important;
+}
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  transform: translateX(50px);
+  opacity: 0;
 }
 </style>

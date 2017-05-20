@@ -3,12 +3,12 @@
     <div class="column is-12-mobile is-6-tablet x is-offset-3-tablet">
       <nav class="nav has-shadow button-issue ">
         <div class="nav-center level" v-show="$route.name === 'Feeds'">
-          <router-link class="nav-item level-item" style="color: white;" :to="{ path: 'report' }">
+          <a class="nav-item level-item" style="color: white;" @click="toReport">
             <i class="fa fa-plus-circle " aria-hidden="true"></i>&nbsp;
             <span class="">
               รายงานปัญหา
             </span>
-          </router-link>
+          </a>
         </div>
       </nav>
     </div>
@@ -17,7 +17,20 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
+  computed: {
+    ...mapGetters(['authorized'])
+  },
+  methods: {
+    toReport () {
+      if (!this.authorized) {
+        this.$dialog.alert({message: 'หากคุณต้องการแจ้งปัญหากรุณา เข้าสู่ระบบก่อนค่ะ'})
+        return
+      }
+      this.$router.push({ path: 'report' })
+    }
+  }
 }
 </script>
 
