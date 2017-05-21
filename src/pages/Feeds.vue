@@ -53,7 +53,7 @@ export default {
         issue.countVotes = this.countVotes(issue.votes)
         issue.countComments = this.countComments(issue.comments)
       })
-      return _.orderBy(newIssues, 'distance')
+      return _.orderBy(newIssues, ['distance', 'countVotes'], ['asc', 'desc'])
     }
   },
   methods: {

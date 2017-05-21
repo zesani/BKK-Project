@@ -111,4 +111,7 @@ body {
   opacity: 0;
   transform: translateY(30px);
 }
+.list-move {
+  transition: transform 1s;
+}
 </style>
