@@ -10,10 +10,10 @@
         <br>
         <div class="columns is-mobile is-multiline">
           <div v-if="photo.img !== ''" :class="{'column is-4':issue.photos.length >=4, 'column': issue.photos.length <=4}" v-show="index < 3" v-for="(photo, index) in issue.photos">
-            <img :src="photo.img" alt="">
+            <img :src="photo.img" alt="" @click="showSlidePhoto(index)">
           </div>
           <div class="column is-4" v-if="photo.img !== ''" v-show ="index >= 3 && index < 5" v-for="(photo, index) in issue.photos">
-            <img  :src="photo.img" alt="">
+            <img  :src="photo.img" @click="showSlidePhoto(index)"alt="">
           </div>
           <div v-show="issue.photos.length >=6" class="column is-4">
             <img src="" alt="">
@@ -48,17 +48,21 @@
       </a>
     </footer>
     <comments :modal-style="modalStyle" :show-comment="showComment" :issue="issue"></comments>
+    <slide-photos :photos="issue.photos" :index="indexPhoto" :show="showPhoto" :show-slide-photo="showSlidePhoto" :next-photo="nextPhoto" :back-photo="backPhoto">  </slide-photos>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import Comments from '../components/Comments'
+import SlidePhotos from '../components/SlidePhotos'
 export default {
   props: ['issue'],
   data () {
     return {
-      modalStyle: false
+      modalStyle: false,
+      indexPhoto: '',
+      showPhoto: false
     }
   },
   computed: {
@@ -100,10 +104,29 @@ export default {
     },
     showComment () {
       this.modalStyle = !this.modalStyle
+    },
+    showSlidePhoto (index) {
+      this.showPhoto = !this.showPhoto
+      this.indexPhoto = index
+    },
+    nextPhoto (index, length) {
+      if (index === length - 2) {
+        this.indexPhoto = 0
+      } else {
+        this.indexPhoto = index + 1
+      }
+    },
+    backPhoto (index, length) {
+      if (index === 0) {
+        this.indexPhoto = length - 2
+      } else {
+        this.indexPhoto = index - 1
+      }
     }
   },
   components: {
-    Comments
+    Comments,
+    SlidePhotos
   }
 }
 </script>

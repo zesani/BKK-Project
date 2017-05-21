@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- <div class="columns"> -->
-    <div class="column is-12-mobile is-6-tablet x is-offset-3-tablet"  v-show="$route.name === 'Feeds'" @click="toReport">
+    <div class="column is-12-mobile is-6-tablet x is-offset-3-tablet" style="cursor:pointer;"  v-show="$route.name === 'Feeds'" @click="toReport">
       <nav class="nav has-shadow button-issue ">
         <div class="nav-center level">
           <a class="nav-item level-item" style="color: white;">

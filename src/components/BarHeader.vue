@@ -38,8 +38,12 @@
         <i class="fa fa-facebook-square" aria-hidden="true"></i>&nbsp;
         <span class="level-item"> เข้าสู่ระบบ </span>
       </a>
+      <a class="nav-item" style="color: white; cursor: default ;" v-show="authorized">
+        <img :src="profile.photoURL" class="display-avatar" alt="">&nbsp;
+        {{profile.displayName}}
+      </a>
       <a class="nav-item" style="color: white; cursor: pointer;" @click="signOut" v-show="authorized">
-        <i class="fa fa-sign-out" aria-hidden="true"></i>
+        <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
         <span class="level-item">logout</span>
       </a>
     </div>
@@ -114,7 +118,15 @@ export default {
   border-radius: 60px !important;
   background-clip: padding-box !important;
   margin: 0px 0px 0px 5px !important;
-  /*float: left;*/
+}
+.display-avatar {
+  -webkit-border-radius: 60px !important;
+  -webkit-background-clip: padding-box !important;
+  -moz-border-radius: 60px !important;
+  -moz-background-clip: padding !important;
+  border-radius: 60px !important;
+  background-clip: padding-box !important;
+  margin: 0px 0px 0px 5px !important;
 }
 .slide-fade-enter-active {
   transition: all .4s ease;
