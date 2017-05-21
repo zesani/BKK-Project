@@ -1,25 +1,26 @@
 <template lang="html">
-  <div class="modal is-active" v-if="show">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <div class="modal-card-body pop-photo" >
-        <div class="close-photo">
-          <span  @click="showSlidePhoto(0)"><i style="cursor:pointer;"class="fa fa-times-circle-o " aria-hidden="true"></i></span>
-        </div>
-        <div class="column is-hidden-tablet">
-        </div>
-        <div class="user-photo">
-          <img :src="photos[index].img" class="" alt=""><br>
-          <center>{{index + 1}}/ {{photos.length - 1}}</a></center>
-          <center><a class="button" @click="backPhoto(index, photos.length, -1)"><</a>
-            <a class="button" @click="nextPhoto(index, photos.length, 1)">></a>
-          </center>
+  <transition name="slide-fade">
+    <div class="modal is-active" v-if="show">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <div class="modal-card-body pop-photo" >
+          <div class="close-photo">
+            <span  @click="showSlidePhoto(0)"><i style="cursor:pointer;"class="fa fa-times-circle-o " aria-hidden="true"></i></span>
+          </div>
+          <div class="column is-hidden-tablet">
+          </div>
+          <div class="user-photo">
+            <img :src="photos[index].img" class="" alt=""><br>
+            <center>{{index + 1}}/ {{photos.length - 1}}</a></center>
+            <center><a class="button" @click="backPhoto(index, photos.length, -1)"><</a>
+              <a class="button" @click="nextPhoto(index, photos.length, 1)">></a>
+            </center>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
-
 <script>
 export default {
   props: ['photos', 'index', 'showSlidePhoto', 'show', 'nextPhoto', 'backPhoto']
@@ -28,7 +29,7 @@ export default {
 
 <style lang="css" scoped>
 .pop-photo {
-  height: 100%;
+  height: 90vh;
   border-radius: 5px !important;
   margin-left: 0% !important;;
   margin-right: 0% !important;;

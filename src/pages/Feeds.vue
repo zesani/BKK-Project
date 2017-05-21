@@ -3,9 +3,11 @@
     <div class="column is-12"></div>
     <div class="column is-12"></div>
     <div class="column is-12" v-if="issues.length === 0"></div>
+
     <div class="column cards is-6-tablet is-offset-3-tablet" v-if="issues.length !== 0">
       <card-issues v-for="issue in showIssues" :key="issue['.key']" :issue="issue"></card-issues>
     </div>
+  </transition>
     <div class="column data-load is-6-tablet is-offset-3-tablet" v-else>
       <div class="columns">
         <div class="column is-hidden-tablet">

@@ -42,7 +42,7 @@
       <div class="field  has-addons-centered">
         <p class="control">
           <center>
-            <button class="button is-primary font-issue" @click="add (topic, photos, locationGps, location, description, fullName, phone)">แจ้งเหตุ</button>
+            <button class="button is-primary font-issue" @click="add (topic, photos, locationGps, location, description, phone)">แจ้งเหตุ</button>
           </center>
         </p>
       </div>
@@ -69,19 +69,26 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['locationGps', 'centerMap'])
+    ...mapGetters(['locationGps', 'centerMap', 'profile'])
   },
   methods: {
     ...mapActions(['addIssue', 'markLocation']),
-    add (topic, photos, locationGps, location, description, fullName, phone) {
+    add (topic, photos, locationGps, location, description, phone) {
+      if (topic === '' || description === '' || phone === '') {
+        this.$dialog.alert({
+          message: 'กรุณากรอกข้อมูลให้ครบค่ะ',
+          confirmText: 'ตกลง'
+        })
+        return
+      }
       this.addIssue({
         topic,
         photos,
         locationGps,
         location,
         description,
-        fullName,
-        phone
+        phone,
+        profile: this.profile
       })
       this.topic = ''
       this.location = ''

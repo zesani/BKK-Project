@@ -128,14 +128,4 @@ export default {
   background-clip: padding-box !important;
   margin: 0px 0px 0px 5px !important;
 }
-.slide-fade-enter-active {
-  transition: all .4s ease;
-}
-.slide-fade-leave-active {
-  transition: all .1.5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to{
-  transform: translateX(50px);
-  opacity: 0;
-}
 </style>

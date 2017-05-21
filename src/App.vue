@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <bar-header></bar-header>
-    <router-view></router-view>
+    <transition name="slide-fade">
+      <router-view></router-view>
+    </transition>
     <footer-bar></footer-bar>
   </div>
 </template>
@@ -10,7 +12,6 @@
 import { mapGetters, mapActions } from 'vuex'
 import BarHeader from './components/BarHeader'
 import FooterBar from './components/FooterBar'
-import Login from './components/Login'
 export default {
   name: 'app',
   data () {
@@ -25,8 +26,7 @@ export default {
   },
   components: {
     BarHeader,
-    FooterBar,
-    Login
+    FooterBar
   },
   created () {
     this.setIssuesRef()
@@ -89,5 +89,15 @@ body {
 }
 .coloraw{
   color: #0e8e5c !important;
+}
+.slide-fade-enter-active {
+  transition: all .4s ease;
+}
+.slide-fade-leave-active {
+  transition: all .1.5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to{
+  transform: translateX(50px);
+  opacity: 0;
 }
 </style>
