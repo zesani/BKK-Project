@@ -10,13 +10,13 @@
         สถานที่: {{issue.location}}
         <br>
         <div class="columns is-mobile is-multiline">
-          <div v-if="photo.img !== ''" :class="{'column is-4':issue.photos.length >=4, 'column': issue.photos.length <=4}" v-show="index < 3" v-for="(photo, index) in issue.photos">
+          <div :class="{'column is-4':photos.length >=3, 'column': photos.length <=4}" v-show="index < 3" v-for="(photo, index) in photos">
             <img :src="photo.img" alt="" @click="showSlidePhoto(index)">
           </div>
-          <div class="column is-4" v-if="photo.img !== ''" v-show ="index >= 3 && index < 5" v-for="(photo, index) in issue.photos">
+          <div class="column is-4" v-show ="index >= 3 && index < 5" v-for="(photo, index) in photos">
             <img  :src="photo.img" @click="showSlidePhoto(index)"alt="">
           </div>
-          <div v-show="issue.photos.length > 6" class="column is-4">
+          <div v-show="photos.length > 5" class="column is-4">
             <img @click="showSlidePhoto(0)"src="../../static/imagePlus1.png" alt="">
           </div>
         </div>
@@ -49,7 +49,7 @@
       </a>
     </footer>
     <comments :modal-style="modalStyle" :show-comment="showComment" :issue="issue"></comments>
-    <slide-photos :photos="issue.photos" :index="indexPhoto" :show="showPhoto" :show-slide-photo="showSlidePhoto" :next-photo="nextPhoto" :back-photo="backPhoto">  </slide-photos>
+    <slide-photos :photos="photos" :index="indexPhoto" :show="showPhoto" :show-slide-photo="showSlidePhoto" :next-photo="nextPhoto" :back-photo="backPhoto">  </slide-photos>
   </div>
 </template>
 
@@ -69,7 +69,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['locationGps', 'profile', 'authorized'])
+    ...mapGetters(['locationGps', 'profile', 'authorized']),
+    photos () {
+      let newPhotos = this.issue.photos.filter(photo => photo.img !== '').map(photo => photo)
+      return newPhotos
+    }
   },
   mounted () {},
   methods: {
@@ -84,7 +88,7 @@ export default {
       }
       if (this.addVote({key: issue['.key'], profile: this.profile})) {
         this.$toast.open({
-          message: 'โหวต สำเร็จ',
+          message: 'โหวตสำเร็จ',
           type: 'is-primary'
         })
       }
@@ -113,7 +117,7 @@ export default {
       this.indexPhoto = index
     },
     nextPhoto (index, length) {
-      if (index === length - 2) {
+      if (index === length - 1) {
         this.indexPhoto = 0
       } else {
         this.indexPhoto = index + 1
@@ -121,7 +125,7 @@ export default {
     },
     backPhoto (index, length) {
       if (index === 0) {
-        this.indexPhoto = length - 2
+        this.indexPhoto = length - 1
       } else {
         this.indexPhoto = index - 1
       }

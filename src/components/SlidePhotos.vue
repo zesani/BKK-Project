@@ -11,7 +11,7 @@
           </div>
           <div class="user-photo">
             <img :src="photos[index].img" class="" alt=""><br>
-            <center>{{index + 1}}/ {{photos.length - 1}}</a></center>
+            <center>{{index + 1}}/ {{photos.length}}</a></center>
             <center><a class="button" @click="backPhoto(index, photos.length, -1)"><</a>
               <a class="button" @click="nextPhoto(index, photos.length, 1)">></a>
             </center>

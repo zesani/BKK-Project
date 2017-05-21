@@ -7,7 +7,7 @@
         <p class="modal-card-title"><center>ความคิดเห็น</center></p>
         <button class="delete" @click="showComment"></button>
       </header>
-      <div class="modal-card-body comments" >
+      <div class="modal-card-body comments" v-chat-scroll>
         <div class="card" v-for="comment in issue.comments">
           <div class="card-content">
             <div class="media">

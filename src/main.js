@@ -7,7 +7,8 @@ import store from './store'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import Buefy from 'buefy'
 // import 'buefy/lib/buefy.css'
-
+import VueChatScroll from 'vue-chat-scroll'
+Vue.use(VueChatScroll)
 Vue.use(Buefy)
 Vue.use(VueGoogleMaps, {
   load: {

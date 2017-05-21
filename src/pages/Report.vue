@@ -81,9 +81,10 @@ export default {
         })
         return
       }
+      let newPhotos = this.photos.filter(photo => photo.img !== '').map(photo => photo)
       this.addIssue({
         topic,
-        photos,
+        photos: newPhotos,
         locationGps,
         location,
         description,
