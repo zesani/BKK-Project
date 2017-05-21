@@ -2,26 +2,50 @@
   <div class="card set-mar">
     <div class="card-content">
       <div class="content">
-      <i class="fa fa-circle" aria-hidden="true"></i>&nbsp;{{issue.topic}}
-      <br>
-      สถานที่: {{issue.location}}
-      <br>
-      รายละเอียด: {{issue.description}}
-      <br>
-      <div class="columns">
-        <!-- <div class="column" v-for="photo in issue.photos">
-          <img :src="photo.img" alt="">
-        </div> -->
-        <div class="column">
-          <img :src="issue.photos[0].img" alt="">
+        ปัญหา:&nbsp;{{issue.topic}}
+        <br>
+        รายละเอียด: {{issue.description}}
+        <br>
+        สถานที่: {{issue.location}}
+        <br>
+        <div class="columns is-mobile is-multiline">
+          <div v-if="photo.img !== ''" :class="{'column is-4':issue.photos.length >=4, 'column': issue.photos.length <=4}" v-show="index < 3" v-for="(photo, index) in issue.photos">
+            <img :src="photo.img" alt="">
+          </div>
+          <div class="column is-4" v-if="photo.img !== ''" v-show ="index >= 3 && index < 5" v-for="(photo, index) in issue.photos">
+            <img  :src="photo.img" alt="">
+          </div>
+          <div v-show="issue.photos.length >=6" class="column is-4">
+            <img src="" alt="">
+          </div>
         </div>
-      </div>
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item" v-show="checkVote(issue.votes)" @click="addV(issue)">+{{issue.countVotes}}</a>
-      <a class="card-footer-item" v-show="!checkVote(issue.votes)" @click="removeV(issue)">+{{issue.countVotes}}</a>
-      <a class="card-footer-item" @click="showComment()">{{issue.countComments}} ความคิดเห็น</a>
+      <a class="card-footer-item" v-show="checkVote(issue.votes)" @click="addV(issue)">
+        <div class="level is-mobile">
+          <div class="level-item">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;
+          </div>
+          <div class="level-item has-text-centered">
+            <h2 class="title is-4">{{issue.countVotes}}</h2>
+          </div>
+        </div>
+      </a>
+      <a class="card-footer-item" style="background-color:#f1f1f1;" v-show="!checkVote(issue.votes)" @click="removeV(issue)">
+        <div class="level is-mobile">
+          <div class="level-item">
+            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;
+          </div>
+          <div class="level-item has-text-centered">
+            <h2 class="title is-4">{{issue.countVotes}}</h2>
+          </div>
+        </div>
+      </a>
+      <a class="card-footer-item comment" @click="showComment()">
+        {{issue.countComments}} ความคิดเห็น &nbsp;
+        <i class="fa fa-commenting" style="color:#6a6a6a;" aria-hidden="true"></i>
+      </a>
     </footer>
     <comments :modal-style="modalStyle" :show-comment="showComment" :issue="issue"></comments>
   </div>
@@ -47,14 +71,14 @@ export default {
       if (!this.authorized) {
         this.$dialog.alert({
           message: 'กรุณา Login เข้าสู่ระบบก่อนทำการกดโหวตค่ะ',
-          confirmText: 'รับทราบ'
+          confirmText: 'ตกลง'
         })
         return
       }
       if (this.addVote({key: issue['.key'], profile: this.profile})) {
         this.$toast.open({
-          message: 'ขอบคุณสำหรับการโหวตค่ะ',
-          type: 'is-success'
+          message: 'โหวต สำเร็จ',
+          type: 'is-primary'
         })
       }
     },
@@ -87,5 +111,8 @@ export default {
 <style lang="css">
 .set-mar {
   margin-bottom: 10px;
+}
+.comment {
+  padding: 10px !important;
 }
 </style>

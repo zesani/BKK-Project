@@ -18,10 +18,11 @@ var provider = new firebase.auth.FacebookAuthProvider()
 var Issues = db.ref('issues')
 
 export default new Vuex.Store({
+  strict: process.env.NODE_ENV !== 'production',
   state: {
     issues: [],
     authorized: false,
-    profile: '',
+    profile: {},
     locationGps: {lat: 14.0224367, lng: 101.6217662},
     centerMap: {lat: 14.0224367, lng: 101.6217662}
   },
@@ -39,11 +40,24 @@ export default new Vuex.Store({
     login () {
       firebase.auth().signInWithRedirect(provider)
     },
-    logout (context) {
-      context.commit('logout')
+    logout ({commit}) {
+      firebase.auth().signOut().then(function () {
+        commit('logout')
+      }, function (error) {
+        console.error(error)
+      })
     },
-    checkLogin (context) {
-      context.commit('checkLogin')
+    checkLogin ({commit}) {
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          commit('checkLogin', user)
+        }
+      })
+      firebase.auth().getRedirectResult().then(function (result) {
+        if (result.credential) {}
+      }).catch((error) => {
+        console.error(error)
+      })
     },
     getLocation ({commit}) {
       if (navigator.geolocation) {
@@ -88,26 +102,16 @@ export default new Vuex.Store({
     setLocation (state, location) {
       state.locationGps = location
     },
-    checkLogin (state) {
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          state.authorized = true
-          state.profile = user
-        }
-      })
-      firebase.auth().getRedirectResult().then(function (result) {
-        if (result.credential) {}
-      }).catch((error) => {
-        console.error(error)
-      })
+    checkLogin (state, user) {
+      state.profile.displayName = user.displayName
+      state.profile.uid = user.uid
+      state.profile.photoURL = user.photoURL
+      state.profile.email = user.email
+      state.authorized = true
     },
     logout (state) {
-      firebase.auth().signOut().then(function () {
-        state.authorized = false
-        state.profile = ''
-      }, function (error) {
-        console.error(error)
-      })
+      state.authorized = false
+      state.profile = {}
     }
   }
 })

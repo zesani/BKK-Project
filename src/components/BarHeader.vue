@@ -10,7 +10,7 @@
     <div class="nav-center" v-show="$route.name === 'Feeds'">
       <a class="nav-item" style="color: white;">
         <span>
-          ปัญหา
+          <img src="../../static/logo1.png" alt="">
         </span>
       </a>
     </div>

@@ -1,22 +1,5 @@
 <template lang="html">
   <div class="columns is-multiline report">
-    <!-- <h1>Report</h1>
-    เรื่อง<input type="text" v-model="topic"><br> -->
-    <!-- <gmap-map :center="centerMap" :zoom="15" map-type-id="terrain" style="width: 500px; height: 300px; margin: auto;">
-      <gmap-marker :position="locationGps" :clickable="true" :draggable="true" @mouseup="setLocation($event)"></gmap-marker>
-    </gmap-map> -->
-    <!-- สถานที่เกิดเหตุ<input type="text" v-model="location"><br>
-    <div class="photo" v-for="(photo, index) in photos">
-      <img :src="photo.img" v-show="photo.img !== ''"/>
-      <div class="upload" v-show="photo.img === ''">
-        <input type="file" @change="onFileChange" @click="indexPhoto = index">
-      </div>
-    </div> -->
-    <!-- <button type="button" name="button" @click="addPhoto">add</button><br> -->
-    <!-- รายละเอียด<input type="text" v-model="description"><br>
-    ชื่อ-สกุล<input type="text" v-model="fullName"><br>
-    เบอร์โทร<input type="text" v-model="phone"><br>
-    <button type="button" @click="add (topic, photos, locationGps, location, description, fullName, phone)">เพิ่มปัญหา</button> -->
     <div class="column is-12-tablet"></div>
     <div class="column is-12-tablet"></div>
     <div class="column is-12-tablet"></div>
@@ -26,8 +9,23 @@
         <input class="input" type="text" placeholder="(Ex.ท่อน้ำปะปาแตก)" v-model="topic"><br><br>
         <label class="label">สถานที่เกิดเหตุ</label>
         <input class="input" type="text" placeholder="(Ex.สี่แยกราชประสงค์)" v-model="location"><br><br>
+        <gmap-map :center="centerMap" :zoom="15" map-type-id="terrain" style="width: 100%; height: 200px; margin: auto;">
+          <gmap-marker :position="locationGps" :clickable="true" :draggable="true" @mouseup="setLocation($event)"></gmap-marker>
+        </gmap-map><br>
+        <label class="label">รายละเอียด</label>
+        <textarea class="textarea" placeholder="(Ex.น้ำท่วมขัง ถนนลื่น แมลงสาบเอ่อล้นที่ห้องครัว)" v-model="description"></textarea><br>
+        <label class="label">เลือกหมวดหมู่ปัญหา</label>
+        <b-dropdown>
+          <button class="button" slot="trigger">
+            <span>รายการปัญหา</span>
+          </button>
+          <b-dropdown-option>Action</b-dropdown-option>
+          <b-dropdown-option>Another action</b-dropdown-option>
+          <b-dropdown-option>Something else</b-dropdown-option>
+        </b-dropdown>
+        <br><br>
         <div class="fileUpload button is-primary" @change="onFileChange" @click="indexPhoto = photos.length-1">
-          <span>เพิ่มรุปภาพ</span>
+          <span>เพิ่มรูปภาพ</span>
           <input type="file" class="upload" />
         </div>
         <div class="columns is-mobile is-multiline is-gapless">
@@ -38,21 +36,17 @@
             <img :src="photo.img" alt="">
           </div>
         </div>
-        <label class="label">รายละเอียด</label>
-        <textarea class="textarea" placeholder="รายละเอียด" v-model="description"></textarea><br>
         <label class="label">เบอร์โทรศัพท์</label>
-        <input class="input" type="text" placeholder="xxx-xxxxxxx" v-model="phone"><br><br>
+        <input class="input" type="number" placeholder="xxx-xxxxxxx" v-model="phone"><br><br>
       </div>
-      <div class="field is-grouped">
+      <div class="field  has-addons-centered">
         <p class="control">
-          <button class="button is-primary font-issue" @click="add (topic, photos, locationGps, location, description, fullName, phone)">แจ้งเหตุ</button>
+          <center>
+            <button class="button is-primary font-issue" @click="add (topic, photos, locationGps, location, description, fullName, phone)">แจ้งเหตุ</button>
+          </center>
         </p>
-        <!-- <p class="control">
-          <button class="button is-link font-issue">ยกเลิก</button>
-        </p> -->
       </div>
     </div>
-    <div class="column is-12-tablet"></div>
     <div class="column is-12-tablet"></div>
   </div>
 </template>
@@ -172,7 +166,9 @@ export default {
   border-radius: 2px;
 }
 .font-issue {
-  font-family: 'Kanit', sans-serif;
+  /*font-family: 'Kanit', sans-serif;*/
+  padding-left: 12%;
+  padding-right: 12%;
 }
 .box-x img{
   width: 98%;

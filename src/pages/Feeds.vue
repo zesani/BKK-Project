@@ -1,15 +1,29 @@
 <template lang="html">
   <div class="columns is-multiline">
-    <div class="column is-12-tablet"></div>
-    <div class="column is-12-tablet"></div>
-    <div class="column cards is-6-tablet is-offset-3-tablet">
+    <div class="column is-12"></div>
+    <div class="column is-12"></div>
+    <div class="column is-12" v-if="issues.length === 0"></div>
+    <div class="column cards is-6-tablet is-offset-3-tablet" v-if="issues.length !== 0">
       <card-issues v-for="issue in showIssues" :key="issue['.key']" :issue="issue"></card-issues>
     </div>
-    <div class="column is-12-table"></div>
+    <div class="column data-load is-6-tablet is-offset-3-tablet" v-else>
+      <div class="columns">
+        <div class="column is-hidden-tablet">
+        </div>
+        <div class="column is-hidden-tablet">
+        </div>
+        <div class="column is-6 is-offset-3 load-sync">
+          <center><sync-loader :color="color" :size="size"></sync-loader></center>
+        </div>
+      </div>
+    </div>
+    <div class="column is-12"></div>
+    <div class="column is-12"></div>
   </div>
 </template>
 
 <script>
+import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 import { mapGetters, mapActions } from 'vuex'
 import CardIssues from '../components/CardIssues'
 var _ = require('lodash')
@@ -17,10 +31,13 @@ export default {
   name: 'Home',
   data () {
     return {
+      color: '#0e8e5c',
+      size: '50px'
     }
   },
   components: {
-    CardIssues
+    CardIssues,
+    SyncLoader
   },
   computed: {
     ...mapGetters(['issues', 'locationGps', 'profile']),
@@ -70,8 +87,13 @@ export default {
   padding-right: 20px !important;
   padding-top: 20px !important;
   padding-bottom: 20px !important;
-  /*padding-top: 18% !important;*/
-  /*height: 100%;*/
-  overflow: auto;
+}
+.data-load {
+  height: 82vh;
+
+  background-color: white;
+}
+.load-sync{
+  padding-top: 40%;
 }
 </style>

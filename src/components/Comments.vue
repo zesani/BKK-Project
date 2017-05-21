@@ -43,7 +43,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['locationGps', 'profile']),
+    ...mapGetters(['locationGps', 'profile', 'authorized']),
     line () {
       if (this.message === '' || this.message.split('\n').length === 1) return 2
       if (this.message.split('\n').length >= 5) {
@@ -58,6 +58,13 @@ export default {
   methods: {
     ...mapActions(['addComment']),
     addC () {
+      if (!this.authorized) {
+        this.$dialog.alert({
+          message: 'กรุณา Login เข้าสู่ระบบก่อนทำการแสดงความคิดค่ะ',
+          confirmText: 'ตกลง'
+        })
+        return
+      }
       if (this.message !== '') {
         this.addComment({key: this.issue['.key'], profile: this.profile, message: this.message})
       }
@@ -79,23 +86,16 @@ export default {
 .slide-fade-leave-active {
   transition: all .1.5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for <2.1.8 */ {
+.slide-fade-enter, .slide-fade-leave-to {
   transform: translateX(50px);
   opacity: 0;
 }
 a.can-sent {
-  /*background-color: #ff8d00;*/
-  color: white;
-}
-a.can-sent hover{
-  /*background-color: #ff8d00;*/
   color: white;
 }
 a.disabled {
    pointer-events: none;
    cursor: default;
-   /*background-color: #f00 !important;*/
 }
 .company-header-avatar{
   width: 48px !important;
@@ -112,12 +112,8 @@ a.disabled {
 .message {
   width: 90% !important;
 }
-.s {
-  /*height: 3% !important;*/
-}
 .post {
   margin-left: 16%;
   margin-bottom: 45%;
 }
-/*textarea { height: auto !important; }*/
 </style>
