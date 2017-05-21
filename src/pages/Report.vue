@@ -26,7 +26,7 @@
         <br><br>
         <div class="fileUpload button is-primary" @change="onFileChange" @click="indexPhoto = photos.length-1">
           <span>เพิ่มรูปภาพ</span>
-          <input type="file" class="upload" />
+          <input type="file" accept="image/*" class="upload" />
         </div>
         <div class="columns is-mobile is-multiline is-gapless">
           <div v-if="photo.img !== ''" class="column box-x" v-for="(photo, index) in photos">

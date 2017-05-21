@@ -16,5 +16,6 @@ export default new Router({
       name: 'Report',
       component: Report
     }
-  ]
+  ],
+  mode: 'history'
 })
