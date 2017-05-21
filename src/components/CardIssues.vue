@@ -16,8 +16,8 @@
           <div class="column is-4" v-if="photo.img !== ''" v-show ="index >= 3 && index < 5" v-for="(photo, index) in issue.photos">
             <img  :src="photo.img" @click="showSlidePhoto(index)"alt="">
           </div>
-          <div v-show="issue.photos.length >=6" class="column is-4">
-            <img src="" alt="">
+          <div v-show="issue.photos.length > 6" class="column is-4">
+            <img @click="showSlidePhoto(0)"src="../../static/imagePlus1.png" alt="">
           </div>
         </div>
       </div>

@@ -5,7 +5,9 @@
     <div class="column is-12" v-if="issues.length === 0"></div>
 
     <div class="column cards is-6-tablet is-offset-3-tablet" v-if="issues.length !== 0">
-      <card-issues v-for="issue in showIssues" :key="issue['.key']" :issue="issue"></card-issues>
+      <transition-group name="list" tag="p">
+        <card-issues v-for="issue in showIssues" :key="issue['.key']" :issue="issue"></card-issues>
+      </transition-group>
     </div>
   </transition>
     <div class="column data-load is-6-tablet is-offset-3-tablet" v-else>
