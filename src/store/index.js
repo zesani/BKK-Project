@@ -72,9 +72,7 @@ export default new Vuex.Store({
     },
     upPhoto ({commit}, payload) {
       return new Promise((resolve, reject) => {
-          // Do something here... lets say, a http call using vue-resource
         storageRef.child(Date.now() + payload.name).put(payload.file).then(function (snapshot) {
-          // console.log(snapshot.downloadURL)
           resolve(snapshot.downloadURL)
         })
       })
@@ -101,6 +99,9 @@ export default new Vuex.Store({
         photoURL: payload.profile.photoURL,
         message: payload.message
       })
+    },
+    removeIssues ({commit}, payload) {
+      Issues.child(payload['.key']).remove()
     }
   },
   mutations: {

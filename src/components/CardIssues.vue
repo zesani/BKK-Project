@@ -2,6 +2,7 @@
   <div class="card set-mar">
     <div class="card-content">
       <div class="content">
+        <edit-drop v-if="profile.uid === issue.profile.uid" :show="showEdit" :issue="issue" :show-edit-drop="showEditDrop"></edit-drop>
         ปัญหา:&nbsp;{{issue.topic}}
         <br>
         รายละเอียด: {{issue.description}}
@@ -56,13 +57,15 @@
 import { mapGetters, mapActions } from 'vuex'
 import Comments from '../components/Comments'
 import SlidePhotos from '../components/SlidePhotos'
+import EditDrop from '../components/EditDrop'
 export default {
   props: ['issue'],
   data () {
     return {
       modalStyle: false,
       indexPhoto: '',
-      showPhoto: false
+      showPhoto: false,
+      showEdit: false
     }
   },
   computed: {
@@ -122,11 +125,15 @@ export default {
       } else {
         this.indexPhoto = index - 1
       }
+    },
+    showEditDrop () {
+      this.showEdit = !this.showEdit
     }
   },
   components: {
     Comments,
-    SlidePhotos
+    SlidePhotos,
+    EditDrop
   }
 }
 </script>

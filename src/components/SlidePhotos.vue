@@ -35,7 +35,7 @@ export default {
   margin-right: 0% !important;;
   color: black !important;
   padding-top: 0px !important;
-  overflow: hidden;
+  /*overflow: hidden;*/
   padding-left: 2%;
   padding-right: 2%;
 }
@@ -43,11 +43,13 @@ export default {
   /*border: 1px solid black;*/
   padding-left: 0%;
   padding-right: 0%;
-  /*padding-bottom: 2%;*/
+  /*padding-bottom: 20%;*/
   padding-top: 6%;
 }
 .user-photo img{
   width: 100%;
+  /*width: auto;*/
+  height: auto;
 }
 .close-photo {
   /*border: 1px solid black;*/
