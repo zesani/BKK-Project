@@ -72,7 +72,7 @@ export default {
     ...mapGetters(['locationGps', 'centerMap', 'profile'])
   },
   methods: {
-    ...mapActions(['addIssue', 'markLocation']),
+    ...mapActions(['addIssue', 'markLocation', 'upPhoto']),
     add (topic, photos, locationGps, location, description, phone) {
       if (topic === '' || description === '' || phone === '') {
         this.$dialog.alert({
@@ -117,13 +117,16 @@ export default {
       this.createImage(files[0])
     },
     createImage (file) {
-      // var image = new Image()
       var reader = new FileReader()
       var vm = this
       reader.onload = (e) => {
-        vm.photos[vm.indexPhoto].img = e.target.result
+        // vm.photos[vm.indexPhoto].img = e.target.result
         vm.photos[vm.indexPhoto].name = file.name
         vm.photos[vm.indexPhoto].file = file
+        vm.upPhoto(vm.photos[vm.indexPhoto]).then(response => {
+          vm.photos[vm.indexPhoto].img = response
+          console.log(response)
+        })
         vm.addPhoto()
       }
       reader.readAsDataURL(file)

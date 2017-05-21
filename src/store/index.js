@@ -16,7 +16,8 @@ var db = firebase.database()
 var provider = new firebase.auth.FacebookAuthProvider()
 // var provider = new firebase.auth.GoogleAuthProvider()
 var Issues = db.ref('issues')
-
+var storage = firebase.storage()
+var storageRef = storage.ref('photos')
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
@@ -68,6 +69,15 @@ export default new Vuex.Store({
       } else {
         console.log('Geolocation is not supported by this browser.')
       }
+    },
+    upPhoto ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+          // Do something here... lets say, a http call using vue-resource
+        storageRef.child(Date.now() + payload.name).put(payload.file).then(function (snapshot) {
+          // console.log(snapshot.downloadURL)
+          resolve(snapshot.downloadURL)
+        })
+      })
     },
     addIssue ({commit}, payload) {
       Issues.push(payload)
