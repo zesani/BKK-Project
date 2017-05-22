@@ -8,7 +8,7 @@
       </router-link>
     </div>
     <div class="nav-center" v-show="$route.name === 'Feeds'">
-      <a class="nav-item" style="color: white;">
+      <a class="nav-item" style="color: white;" v-scroll-to="{el: '#header', duration: '1000'}">
         <span>
           <img src="../../static/logo1.png" alt="">
         </span>

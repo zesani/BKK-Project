@@ -35,6 +35,9 @@
             </span>
             <img :src="photo.img" alt="">
           </div>
+          <div v-if="upImage" class="column box-x">
+            <center><sync-loader :color="color" :size="size"></sync-loader></center>
+          </div>
         </div>
         <label class="label">เบอร์โทรศัพท์</label>
         <input class="input" type="number" placeholder="xxx-xxxxxxx" v-model="phone"><br><br>
@@ -52,6 +55,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 export default {
   data () {
     return {
@@ -65,8 +69,14 @@ export default {
         name: ''
       }],
       indexPhoto: 0,
-      votes: []
+      votes: [],
+      upImage: false,
+      color: '#0e8e5c',
+      size: '10px'
     }
+  },
+  components: {
+    SyncLoader
   },
   computed: {
     ...mapGetters(['locationGps', 'centerMap', 'profile'])
@@ -116,6 +126,7 @@ export default {
       var files = e.target.files || e.dataTransfer.files
       if (!files.length) return
       this.createImage(files[0])
+      this.upImage = true
     },
     createImage (file) {
       var reader = new FileReader()
@@ -127,6 +138,7 @@ export default {
         vm.upPhoto(vm.photos[vm.indexPhoto]).then(response => {
           vm.photos[vm.indexPhoto].img = response
           console.log(response)
+          this.upImage = false
         })
         vm.addPhoto()
       }

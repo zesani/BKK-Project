@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="columns is-multiline">
+  <div class="columns is-multiline" id="header">
     <div class="column is-12"></div>
     <div class="column is-12"></div>
     <div class="column is-12" v-if="issues.length === 0"></div>

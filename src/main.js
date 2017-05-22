@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import Buefy from 'buefy'
+import VueScrollTo from 'vue-scrollto'
 // import 'buefy/lib/buefy.css'
 import VueChatScroll from 'vue-chat-scroll'
 Vue.use(VueChatScroll)
@@ -16,6 +17,7 @@ Vue.use(VueGoogleMaps, {
     v: '3.27'
   }
 })
+Vue.use(VueScrollTo)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
