@@ -10,7 +10,7 @@
           <div class="column is-hidden-tablet">
           </div>
           <div class="user-photo">
-            <img :src="photos[index].img" class="" alt=""><br>
+            <center><img :src="photos[index].img" class="" alt=""></center><br>
             <center>{{index + 1}}/ {{photos.length}}</a></center>
             <center><a class="button" @click="backPhoto(index, photos.length, -1)"><</a>
               <a class="button" @click="nextPhoto(index, photos.length, 1)">></a>
@@ -47,9 +47,9 @@ export default {
   padding-top: 6%;
 }
 .user-photo img{
-  width: 100%;
+  max-width: 100%;
   /*width: auto;*/
-  height: auto;
+  max-height: 65vh;
 }
 .close-photo {
   /*border: 1px solid black;*/
