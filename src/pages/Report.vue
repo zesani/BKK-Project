@@ -15,13 +15,15 @@
         <label class="label">รายละเอียด</label>
         <textarea class="textarea" placeholder="(Ex.น้ำท่วมขัง ถนนลื่น แมลงสาบเอ่อล้นที่ห้องครัว)" v-model="description"></textarea><br>
         <label class="label">เลือกหมวดหมู่ปัญหา</label>
-        <b-dropdown>
+        <b-dropdown v-model:value="issueType">
           <button class="button" slot="trigger">
-            <span>รายการปัญหา</span>
+            <span>{{ issueType }}</span>
           </button>
-          <b-dropdown-option>Action</b-dropdown-option>
-          <b-dropdown-option>Another action</b-dropdown-option>
-          <b-dropdown-option>Something else</b-dropdown-option>
+          <b-dropdown-option value="อัคคีภัย">อัคคีภัย</b-dropdown-option>
+          <b-dropdown-option value="ไฟฟ้า">ไฟฟ้า</b-dropdown-option>
+          <b-dropdown-option value="อุทกภัย">อุทกภัย</b-dropdown-option>
+          <b-dropdown-option value="ท้องถนน">ท้องถนน</b-dropdown-option>
+          <b-dropdown-option value="อื่นๆ">อื่นๆ</b-dropdown-option>
         </b-dropdown>
         <br><br>
         <div class="fileUpload button is-primary" @change="onFileChange" @click="indexPhoto = photos.length-1">
@@ -68,6 +70,7 @@ export default {
         img: '',
         name: ''
       }],
+      issueType: 'รายการปัญหา',
       indexPhoto: 0,
       votes: [],
       upImage: false,
@@ -102,7 +105,8 @@ export default {
         description,
         phone,
         profile: this.profile,
-        date
+        date,
+        issueType: this.issueType
       })
       this.topic = ''
       this.location = ''
@@ -113,6 +117,7 @@ export default {
         img: '',
         name: ''
       }]
+      this.issueType = 'รายการปัญหา'
       this.$router.push('/')
     },
     addPhoto () {
