@@ -16,7 +16,7 @@
                   <img :src="comment.photoURL" class="company-header-avatar" alt="Image">
                 </figure>
               </div>
-              <div class="media-content close-comment">
+              <div class="media-content close-comment"  v-chat-scroll>
                 <span v-if="profile.uid === comment.uid" @click="remove(key)"class="close-icon">
                   <i class="fa fa-times-circle-o" aria-hidden="true"></i>
                 </span>

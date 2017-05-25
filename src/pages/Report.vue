@@ -21,8 +21,8 @@
           </button>
           <b-dropdown-option :value="{name:'ไฟฟ้า', email: '5706021622051@fitm.kmutnb.ac.th', agency: 'การไฟฟ้านครหลวง'}">ไฟฟ้า</b-dropdown-option>
           <b-dropdown-option :value="{name:'อุทกภัย', email: '5706021631123@fitm.kmutnb.ac.th', agency: ' สำนักการระบายน้ำ กรุงเทพมหานคร'}">อุทกภัย</b-dropdown-option>
-          <!-- <b-dropdown-option :value="{name:'ท้องถนน', email: 'koaittipong@gmail.com'}">ท้องถนน</b-dropdown-option> -->
-          <!-- <b-dropdown-option :value="{name:'อื่นๆ', email: 'n.pboat@gmail.com'}">อื่นๆ</b-dropdown-option> -->
+          <b-dropdown-option :value="{name: 'ปัญหาผลพิษทางอากาศ ขยะมูลฝอย', email: 'koaittipong@gmail.com', agency: 'สำนักสิ่งแวดล้อม'}">ปัญหาผลพิษทางอากาศ ขยะมูลฝอย</b-dropdown-option>
+          <b-dropdown-option :value="{name:'ท้องถนน', email: 'n.pboat@gmail.com', agency:'กรมโยธาธิการและผังเมือง'}">ท้องถนน</b-dropdown-option>
         </b-dropdown>
         <br><br>
         <div class="fileUpload button is-primary" @change="onFileChange" @click="indexPhoto = photos.length-1">
@@ -178,20 +178,16 @@ export default {
   margin-bottom: 10px;
 }
 .upload {
-    /*width: 157px;
-    height: 57px;*/
     width: 20%;
     overflow: hidden;
     float: right;
     background: url('http://www.free-icons-download.net/images/plus-logo-icon-27956.png');
     background-size: 57px;
     background-repeat: no-repeat;
-    /*border: 1px solid black;*/
 }
 .upload input {
     float: right;
     display: block !important;
-    /*width: 157px !important;*/
     height: 57px !important;
     opacity: 1 !important;
     overflow: hidden !important;
@@ -205,7 +201,6 @@ export default {
   border-radius: 2px;
 }
 .font-issue {
-  /*font-family: 'Kanit', sans-serif;*/
   padding-left: 12%;
   padding-right: 12%;
 }
