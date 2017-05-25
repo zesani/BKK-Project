@@ -1,7 +1,8 @@
 <template lang="html">
   <transition name="slide-fade">
     <div class="modal is-active" v-if="show">
-      <div class="modal-background"></div>
+      <div class="modal-background" @click="showSlidePhoto(0)">
+      </div>
       <div class="modal-card">
         <div class="modal-card-body pop-photo" >
           <div class="close-photo">
@@ -70,6 +71,8 @@ export default {
   position: absolute;
   right: 7px;
   top: 4px;
+  z-index: 1;
+  font-size: 2em;
   /*margin-left: 95%;*/
 }
 .slide-btn {
