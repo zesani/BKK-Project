@@ -17,7 +17,7 @@
         <div class="column is-hidden-tablet">
         </div>
         <div class="column is-6 is-offset-3 load-sync">
-          <center><sync-loader :color="color" :size="size"></sync-loader></center>
+          <center><beat-loader :color="color" :size="size"></beat-loader></center>
         </div>
       </div>
     </div>
@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
+import beatLoader from 'vue-spinner/src/beatLoader.vue'
+// import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 import { mapGetters, mapActions } from 'vuex'
 import CardIssues from '../components/CardIssues'
 var _ = require('lodash')
@@ -41,7 +42,7 @@ export default {
   },
   components: {
     CardIssues,
-    SyncLoader
+    beatLoader
   },
   computed: {
     ...mapGetters(['issues', 'locationGps', 'profile']),

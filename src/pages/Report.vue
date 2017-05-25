@@ -36,7 +36,7 @@
             <img :src="photo.img" alt="">
           </div>
           <div v-if="upImage" class="column box-x">
-            <center><sync-loader :color="color" :size="size"></sync-loader></center>
+            <center><beat-loader :color="color" :size="size"></beat-loader></center>
           </div>
         </div>
         <label class="label">เบอร์โทรศัพท์</label>
@@ -55,7 +55,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
+import beatLoader from 'vue-spinner/src/beatLoader.vue'
 export default {
   data () {
     return {
@@ -76,7 +76,7 @@ export default {
     }
   },
   components: {
-    SyncLoader
+    beatLoader
   },
   computed: {
     ...mapGetters(['locationGps', 'centerMap', 'profile'])

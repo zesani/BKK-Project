@@ -10,10 +10,17 @@
           <div class="column is-hidden-tablet">
           </div>
           <div class="user-photo">
-            <center><img :src="photos[index].img" class="" alt=""></center><br>
             <center>{{index + 1}}/ {{photos.length}}</a></center>
-            <center><a class="button" @click="backPhoto(index, photos.length, -1)"><</a>
-              <a class="button" @click="nextPhoto(index, photos.length, 1)">></a>
+            <center>
+            <div class="slide-btn">
+              <div class="button slide-btn-l" @click="backPhoto(index, photos.length, -1)">
+                <span class="fa fa-chevron-left"></span>
+              </div>
+              <div class="button slide-btn-r" @click="nextPhoto(index, photos.length, 1)">
+                <span class="fa fa-chevron-right"></span>
+              </div>
+            </div>
+            <img :src="photos[index].img" class="" alt="">
             </center>
           </div>
         </div>
@@ -64,5 +71,31 @@ export default {
   right: 7px;
   top: 4px;
   /*margin-left: 95%;*/
+}
+.slide-btn {
+  width: 100%;
+  top: 5%;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+}
+.slide-btn .slide-btn-l {
+  float: left;
+  background: linear-gradient(to left, rgba(0,0,0,0) , rgba(0,0,0,1));
+}
+.slide-btn .slide-btn-r {
+  float: right;
+  background: linear-gradient(to right, rgba(0,0,0,0) , rgba(0,0,0,1));
+}
+.slide-btn .slide-btn-l, .slide-btn .slide-btn-r {
+  height: 100%;
+  width: 25%;
+  color: #FFF;
+  border: 0;
+  opacity: 0;
+  padding: 0;
+}
+.slide-btn .slide-btn-l:hover, .slide-btn .slide-btn-r:hover {
+  opacity: 0.25;
 }
 </style>
