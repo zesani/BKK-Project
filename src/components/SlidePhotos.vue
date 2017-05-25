@@ -10,17 +10,16 @@
           <div class="column is-hidden-tablet">
           </div>
           <div class="user-photo">
-            <center>{{index + 1}}/ {{photos.length}}</a></center>
-            <center>
             <div class="slide-btn">
               <div class="button slide-btn-l" @click="backPhoto(index, photos.length, -1)">
-                <span class="fa fa-chevron-left"></span>
+                <span class="fa fa-chevron-left" style="font-size: 3em;"></span>
               </div>
               <div class="button slide-btn-r" @click="nextPhoto(index, photos.length, 1)">
-                <span class="fa fa-chevron-right"></span>
+                <span class="fa fa-chevron-right" style="font-size: 3em;"></span>
               </div>
             </div>
-            <img :src="photos[index].img" class="" alt="">
+            <center>
+              <img :src="photos[index].img" class="" alt="">
             </center>
           </div>
         </div>
@@ -51,6 +50,7 @@ export default {
   padding-left: 0%;
   padding-right: 0%;
   /*padding-bottom: 20%;*/
+  position: relative;
   padding-top: 6%;
 }
 .user-photo img{
@@ -74,28 +74,26 @@ export default {
 }
 .slide-btn {
   width: 100%;
+  height: 100%;
   position: absolute;
-  top: 5%;
-  bottom: 0;
   left: 0;
 }
 .slide-btn .slide-btn-l {
   float: left;
-  background: linear-gradient(to left, rgba(0,0,0,0) , rgba(0,0,0,1));
+  background: linear-gradient(to left, rgba(0,0,0,0) , rgba(0,0,0,0));
 }
 .slide-btn .slide-btn-r {
   float: right;
-  background: linear-gradient(to right, rgba(0,0,0,0) , rgba(0,0,0,1));
+  background: linear-gradient(to right, rgba(0,0,0,0) , rgba(0,0,0,0));
 }
 .slide-btn .slide-btn-l, .slide-btn .slide-btn-r {
-  height: 100%;
+  height: 50%;
   width: 25%;
   color: #FFF;
   border: 0;
   padding: 0;
-  opacity: 0;
+  opacity: 1;
 }
 .slide-btn:hover .slide-btn-l, .slide-btn:hover .slide-btn-r {
-  opacity: 0.35;
 }
 </style>

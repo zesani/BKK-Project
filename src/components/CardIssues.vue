@@ -3,6 +3,8 @@
     <div class="card-content">
       <div class="content">
         <edit-drop v-if="profile.uid === issue.profile.uid" :show="showEdit" :issue="issue" :show-edit-drop="showEditDrop"></edit-drop>
+        {{issue.date}}
+        <br>
         <strong class="fonthead">ปัญหา&nbsp;:</strong>&nbsp;{{issue.topic}}
         <br>
           <strong class="fonthead">รายละเอียด&nbsp;:</strong> {{issue.description}}

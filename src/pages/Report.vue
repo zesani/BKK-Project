@@ -92,6 +92,8 @@ export default {
         return
       }
       let newPhotos = this.photos.filter(photo => photo.img !== '').map(photo => photo)
+      let nowDate = new Date()
+      let date = nowDate.toDateString()
       this.addIssue({
         topic,
         photos: newPhotos,
@@ -99,7 +101,8 @@ export default {
         location,
         description,
         phone,
-        profile: this.profile
+        profile: this.profile,
+        date
       })
       this.topic = ''
       this.location = ''
