@@ -14,9 +14,9 @@
         </span>
       </a>
     </div>
-    <transition name="slide-fade">
+    <transition name="fade">
       <div class="modal is-active" v-show="showUser">
-        <div class="modal-background"></div>
+        <div class="modal-background" @click="showUser = false"></div>
         <div class="modal-card">
           <div class="modal-card-body pop-info" >
             <div class="close-info">
