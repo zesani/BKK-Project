@@ -74,10 +74,10 @@ export default {
 }
 .slide-btn {
   width: 100%;
+  position: absolute;
   top: 5%;
   bottom: 0;
   left: 0;
-  position: absolute;
 }
 .slide-btn .slide-btn-l {
   float: left;
@@ -92,10 +92,10 @@ export default {
   width: 25%;
   color: #FFF;
   border: 0;
-  opacity: 0;
   padding: 0;
+  opacity: 0;
 }
-.slide-btn .slide-btn-l:hover, .slide-btn .slide-btn-r:hover {
-  opacity: 0.25;
+.slide-btn:hover .slide-btn-l, .slide-btn:hover .slide-btn-r {
+  opacity: 0.35;
 }
 </style>
