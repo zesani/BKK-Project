@@ -7,8 +7,8 @@
         <p class="modal-card-title"><center>ความคิดเห็น</center></p>
         <button class="delete" @click="showComment"></button>
       </header>
-      <div class="modal-card-body comments" v-chat-scroll>
-        <div class="card" v-for="comment in issue.comments">
+      <div class="modal-card-body comments">
+        <div class="card" v-for="(comment, key) in issue.comments">
           <div class="card-content">
             <div class="media">
               <div class="media-left is-48x48">
@@ -16,7 +16,10 @@
                   <img :src="comment.photoURL" class="company-header-avatar" alt="Image">
                 </figure>
               </div>
-              <div class="media-content">
+              <div class="media-content close-comment">
+                <span v-if="profile.uid === comment.uid" @click="remove(key)"class="close-icon">
+                  <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                </span>
                 <p class="title is-5">{{comment.displayName}}</p>
                 <p class="subtitle is-6">{{comment.message}}</p>
               </div>
@@ -56,7 +59,7 @@ export default {
   mounted () {
   },
   methods: {
-    ...mapActions(['addComment']),
+    ...mapActions(['addComment', 'removeComment']),
     addC () {
       if (!this.authorized) {
         this.$dialog.alert({
@@ -69,6 +72,9 @@ export default {
         this.addComment({key: this.issue['.key'], profile: this.profile, message: this.message})
       }
       this.message = ''
+    },
+    remove (keyComment) {
+      this.removeComment({key: this.issue['.key'], keyComment})
     }
   },
   components: {}
@@ -115,5 +121,12 @@ a.disabled {
 .post {
   margin-left: 16%;
   margin-bottom: 45%;
+}
+.close-comment {
+  position: relative;
+}
+.close-icon {
+  position: absolute;
+  right: 0px;
 }
 </style>

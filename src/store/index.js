@@ -102,6 +102,9 @@ export default new Vuex.Store({
     },
     removeIssues ({commit}, payload) {
       Issues.child(payload['.key']).remove()
+    },
+    removeComment ({commit}, payload) {
+      Issues.child(payload.key + '/comments/' + payload.keyComment).remove()
     }
   },
   mutations: {

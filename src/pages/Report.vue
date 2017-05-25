@@ -17,13 +17,12 @@
         <label class="label">เลือกหมวดหมู่ปัญหา</label>
         <b-dropdown v-model:value="issueType">
           <button class="button" slot="trigger">
-            <span>{{ issueType }}</span>
+            <span>{{ issueType.name }}</span>
           </button>
-          <b-dropdown-option value="อัคคีภัย">อัคคีภัย</b-dropdown-option>
-          <b-dropdown-option value="ไฟฟ้า">ไฟฟ้า</b-dropdown-option>
-          <b-dropdown-option value="อุทกภัย">อุทกภัย</b-dropdown-option>
-          <b-dropdown-option value="ท้องถนน">ท้องถนน</b-dropdown-option>
-          <b-dropdown-option value="อื่นๆ">อื่นๆ</b-dropdown-option>
+          <b-dropdown-option :value="{name:'ไฟฟ้า', email: '5706021622051@fitm.kmutnb.ac.th', agency: 'การไฟฟ้านครหลวง'}">ไฟฟ้า</b-dropdown-option>
+          <b-dropdown-option :value="{name:'อุทกภัย', email: '5706021631123@fitm.kmutnb.ac.th', agency: ' สำนักการระบายน้ำ กรุงเทพมหานคร'}">อุทกภัย</b-dropdown-option>
+          <!-- <b-dropdown-option :value="{name:'ท้องถนน', email: 'koaittipong@gmail.com'}">ท้องถนน</b-dropdown-option> -->
+          <!-- <b-dropdown-option :value="{name:'อื่นๆ', email: 'n.pboat@gmail.com'}">อื่นๆ</b-dropdown-option> -->
         </b-dropdown>
         <br><br>
         <div class="fileUpload button is-primary" @change="onFileChange" @click="indexPhoto = photos.length-1">
@@ -47,7 +46,7 @@
       <div class="field  has-addons-centered">
         <p class="control">
           <center>
-            <button class="button is-primary font-issue" @click="add (topic, photos, locationGps, location, description, phone)">แจ้งเหตุ</button>
+            <button class="button is-primary font-issue" @click="add (topic, photos, locationGps, location, description, phone, issueType)">แจ้งเหตุ</button>
           </center>
         </p>
       </div>
@@ -57,7 +56,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import beatLoader from 'vue-spinner/src/beatLoader.vue'
+import BeatLoader from 'vue-spinner/src/BeatLoader.vue'
 export default {
   data () {
     return {
@@ -70,7 +69,11 @@ export default {
         img: '',
         name: ''
       }],
-      issueType: 'รายการปัญหา',
+      issueType: {
+        name: 'รายการปัญหา',
+        email: '',
+        agency: ''
+      },
       indexPhoto: 0,
       votes: [],
       upImage: false,
@@ -79,15 +82,15 @@ export default {
     }
   },
   components: {
-    beatLoader
+    BeatLoader
   },
   computed: {
     ...mapGetters(['locationGps', 'centerMap', 'profile'])
   },
   methods: {
     ...mapActions(['addIssue', 'markLocation', 'upPhoto']),
-    add (topic, photos, locationGps, location, description, phone) {
-      if (topic === '' || description === '' || phone === '') {
+    add (topic, photos, locationGps, location, description, phone, issueType) {
+      if (topic === '' || description === '' || phone === '' || issueType.name === 'รายการปัญหา') {
         this.$dialog.alert({
           message: 'กรุณากรอกข้อมูลให้ครบค่ะ',
           confirmText: 'ตกลง'
@@ -106,7 +109,8 @@ export default {
         phone,
         profile: this.profile,
         date,
-        issueType: this.issueType
+        issueType,
+        state: 'wait'
       })
       this.topic = ''
       this.location = ''
@@ -117,7 +121,11 @@ export default {
         img: '',
         name: ''
       }]
-      this.issueType = 'รายการปัญหา'
+      this.issueType = {
+        name: 'รายการปัญหา',
+        email: '',
+        agency: ''
+      }
       this.$router.push('/')
     },
     addPhoto () {

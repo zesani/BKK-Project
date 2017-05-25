@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import beatLoader from 'vue-spinner/src/beatLoader.vue'
+import BeatLoader from 'vue-spinner/src/BeatLoader.vue'
 // import SyncLoader from 'vue-spinner/src/SyncLoader.vue'
 import { mapGetters, mapActions } from 'vuex'
 import CardIssues from '../components/CardIssues'
@@ -42,7 +42,7 @@ export default {
   },
   components: {
     CardIssues,
-    beatLoader
+    BeatLoader
   },
   computed: {
     ...mapGetters(['issues', 'locationGps', 'profile']),
