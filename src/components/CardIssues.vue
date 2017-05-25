@@ -3,11 +3,11 @@
     <div class="card-content">
       <div class="content">
         <edit-drop v-if="profile.uid === issue.profile.uid" :show="showEdit" :issue="issue" :show-edit-drop="showEditDrop"></edit-drop>
-        ปัญหา:&nbsp;{{issue.topic}}
+        <strong class="fonthead">ปัญหา&nbsp;:</strong>&nbsp;{{issue.topic}}
         <br>
-        รายละเอียด: {{issue.description}}
+          <strong class="fonthead">รายละเอียด&nbsp;:</strong> {{issue.description}}
         <br>
-        สถานที่: {{issue.location}}
+          <strong class="fonthead">สถานที่&nbsp;:</strong> {{issue.location}}
         <br>
         <div class="columns is-mobile is-multiline">
           <div :class="{'column is-4':photos.length >=3, 'column': photos.length <=4}" v-show="index < 3" v-for="(photo, index) in photos">
@@ -148,5 +148,10 @@ export default {
 }
 .comment {
   padding: 10px !important;
+}
+.fonthead{
+  font-weight:bold !important;
+  color: #ff8d00 !important;
+  font-size: 15px !important;
 }
 </style>
