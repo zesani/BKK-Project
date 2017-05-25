@@ -12,14 +12,15 @@
           <strong class="fonthead">สถานที่&nbsp;:</strong> {{issue.location}}
         <br>
         <div class="columns is-mobile is-multiline">
-          <div :class="{'column is-4':photos.length >=3, 'column': photos.length <=4}" v-show="index < 3" v-for="(photo, index) in photos">
-            <img :src="photo.img" alt="" @click="showSlidePhoto(index)">
-          </div>
-          <div class="column is-4" v-show ="index >= 3 && index < 5" v-for="(photo, index) in photos">
-            <img  :src="photo.img" @click="showSlidePhoto(index)"alt="">
+          <div class="column is-4" v-show ="index < 5" v-for="(photo, index) in photos">
+            <div class="image">
+              <img :src="photo.img" @click="showSlidePhoto(index)" alt="">
+            </div>
           </div>
           <div v-show="photos.length > 5" class="column is-4">
-            <img @click="showSlidePhoto(0)"src="../../static/imagePlus1.png" alt="">
+            <div class="image">
+              <img @click="showSlidePhoto(0)"src="../../static/imagePlus1.png" alt="">
+            </div>
           </div>
         </div>
       </div>

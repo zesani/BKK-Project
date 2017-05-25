@@ -114,4 +114,7 @@ body {
 .list-move {
   transition: transform 1s;
 }
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.25s
+}
 </style>
