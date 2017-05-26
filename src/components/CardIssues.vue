@@ -9,7 +9,7 @@
         <br>
           <strong class="fonthead">สถานที่&nbsp;:</strong> {{issue.location}}
         <br>
-        <div class="columns is-mobile is-multiline">
+        <div class="columns is-mobile is-multiline" v-if="photos !== undefined">
           <div :class="{'column is-4':photos.length >=3, 'column': photos.length <=4}" v-show="index < 3" v-for="(photo, index) in photos">
             <div class="image">
               <img :src="photo.img" @click="showSlidePhoto(index)" alt="">
@@ -77,8 +77,8 @@ export default {
   computed: {
     ...mapGetters(['locationGps', 'profile', 'authorized']),
     photos () {
-      let newPhotos = this.issue.photos.filter(photo => photo.img !== '').map(photo => photo)
-      return newPhotos
+      console.log(this.issue.photos)
+      return this.issue.photos
     }
   },
   mounted () {},
