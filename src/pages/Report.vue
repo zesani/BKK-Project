@@ -66,6 +66,7 @@ export default {
       fullName: '',
       phone: '',
       description: '',
+      check: false,
       photos: [{
         img: '',
         name: ''
@@ -169,8 +170,14 @@ export default {
     }
   },
   watch: {
-    phone: function (val) {
-      console.log(this.phone)
+    phone: function (val, val2) {
+      let phoneSplit = val.split('')
+      phoneSplit.forEach(phone => {
+        if (isNaN(phone)) {
+          phoneSplit[phoneSplit.indexOf(phone)] = ''
+        }
+      })
+      this.phone = phoneSplit.join('').substring(0, 10)
     }
   }
 }
