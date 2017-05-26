@@ -15,7 +15,7 @@
         <label class="label">รายละเอียด</label>
         <textarea class="textarea" placeholder="(Ex.น้ำท่วมขัง ถนนลื่น แมลงสาบเอ่อล้นที่ห้องครัว)" v-model="description"></textarea><br>
         <label class="label">เลือกหมวดหมู่ปัญหา</label>
-        <b-dropdown v-model:value="issueType">
+        <b-dropdown v-model="issueType">
           <button class="button" slot="trigger">
             <span>{{ issueType.name }}</span>
           </button>
@@ -42,7 +42,7 @@
           </div>
         </div>
         <label class="label">เบอร์โทรศัพท์</label>
-        <input class="input" type="number" placeholder="xxx-xxxxxxx" v-model="phone"><br><br>
+        <input class="input" type="text" placeholder="xxx-xxxxxxx" v-model="phone"><br><br>
       </div>
       <div class="field  has-addons-centered">
         <p class="control">
