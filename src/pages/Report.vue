@@ -167,6 +167,11 @@ export default {
       location.lng = event.latLng.lng()
       this.markLocation(location)
     }
+  },
+  watch: {
+    phone: function (val) {
+      console.log(this.phone)
+    }
   }
 }
 </script>
